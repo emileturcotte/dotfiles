@@ -1,0 +1,29 @@
+{
+    "window.titleBarStyle": "custom",
+
+    "editor.tabSize": 2,
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.tabCompletion": "on",
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+
+    "rust-client.engine": "rust-analyzer",
+    "rust-client.autoStartRls": false,
+    "rust.clippy_preference": "on",
+    "rust.rust-analyzer.path": "",
+
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.startupEditor": "newUntitledFile",
+    
+    "explorer.confirmDragAndDrop": false,
+    "vsicons.dontShowNewVersionMessage": true,
+    
+    "git.confirmSync": false,
+    "git.autofetch": true,
+
+    "[csharp]": {
+        "editor.tabSize": 4,
+    },
+
+    "[rust]": {},
+}
