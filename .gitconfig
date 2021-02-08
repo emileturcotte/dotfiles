@@ -1,7 +1,7 @@
 [user]
 	name = Emile Turcotte
 	email = dev@emileturcotte.com
-	signingkey = E8DB4B1F988161B8
+	signingkey = 58605F08885C6901
 [core]
 	editor = vi
 [commit]
@@ -11,3 +11,5 @@
 	added = green
 	untracked = magenta
 	deleted = red
+[gpg]
+	program = gpg2
