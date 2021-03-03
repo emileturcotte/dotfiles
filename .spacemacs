@@ -38,43 +38,88 @@ values."
      ;; ----------------------------------------------------------------
 
      ;; Basics
-     helm
-     emacs-lisp
      (shell :variables
-            shell-default-shell 'eshell
+            shell-default-shell 'vterm
+            shell-default-term-shell "/usr/bin/fish"
+            spacemacs-vterm-history-file-location "~/.local/share/fish/fish_history"
             shell-default-height 30
             shell-default-position 'bottom)
 
-     ;; Text Editing
-     spell-checking
+     ;; Checkers
      syntax-checking
+     
+     ;; Completion
      auto-completion
-
-     ;; Tooling and Productivity
-     git
+     helm
+     
+     ;; Emacs
      org
-     dap
-     (lsp :variables lsp-rust-server 'rust-analyzer)
 
      ;; Programming Languages
-     markdown
-     haskell
-     html
-     csharp
-     javascript
-     (rust :variables rust-format-on-save t)
-     typescript
-     yaml
+     (html :variables
+           web-fmt-tool 'prettier
+           css-enable-lsp t
+           less-enable-lsp t
+           scss-enable-lsp t
+           html-enable-lsp t)
+     
+     (json :variables
+           json-fmt-tool 'prettier
+           json-fmt-on-save t
+           json-backend 'lsp)
+     
+     (yaml :variables
+           yaml-enable-lsp t)
+           
+     (vue :variables
+          vue-backend 'lsp)
+          
+     (javascript :variables
+                 javascript-backend 'lsp
+                 javascript-lsp-linter nil
+                 javascript-fmt-tool 'prettier
+                 js2-basic-offset 2
+                 js-indent-level 2
+                 javascript-repl 'nodejs)
+     
+     (typescript :variables
+                 typescript-fmt-on-save t
+                 typescript-fmt-tool 'prettier
+                 typescript-linter 'tslint
+                 typescript-backend 'lsp
+                 typescript-lsp-linter nil)
+     
+     (csharp :variables
+             csharp-backend 'lsp)
+    
+     dotnet
+     
+     (rust :variables
+           rust-backend 'lsp
+           rust-format-on-save t)
+           
+     ;; Source Control
+     git
+     
+     ;; Themes
+     themes-megapack
+     
+     ;; Tools
+     (dap :variables
+          dap-enable-mouse-support t)
+          
+     docker
+          
+     (lsp :variables
+          lsp-rust-server 'rust-analyser)
+     
 
    )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages
-   '(
-     exec-path-from-shell
-    )
+   dotspacemacs-additional-packages '()
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -146,8 +191,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(sanityinc-tomorrow-night)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -330,7 +374,16 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-
+    
+    (setq-default
+        ;; web-mode
+        web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2
+        web-mode-attr-indent-offset 2)
+        
+    (require 'dap-firefox)
+    (require 'dap-gdb-lldb)
  )
 
 ;; Do not write anything past this comment. This is where Emacs will

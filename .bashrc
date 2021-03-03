@@ -11,3 +11,13 @@
 # ridden in every subshell.
 
 test -s ~/.alias && . ~/.alias || true
+source "/home/emileturcotte/.config/.cargo/env"
+
+alias dotfiles='/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME'
+
+export CODE_PATH="$HOME/Documents/Code"
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+
+export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK=`gpgconf --list-dirs agent-ssh-socket`
+gpgconf --launch gpg-agent
