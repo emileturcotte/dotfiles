@@ -1,7 +1,7 @@
 [user]
 	name = Emile Turcotte
-	email = dev@emileturcotte.com
 	signingkey = 58605F08885C6901
+	email = dev@emileturcotte.com
 [core]
 	editor = vi
 [commit]
@@ -13,3 +13,5 @@
 	deleted = red
 [gpg]
 	program = gpg2
+[credential]
+	helper = store

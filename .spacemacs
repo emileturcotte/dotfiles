@@ -30,28 +30,20 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(shell-scripts
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
 
-     ;; Basics
-     (shell :variables
-            shell-default-shell 'vterm
-            shell-default-term-shell "/usr/bin/fish"
-            spacemacs-vterm-history-file-location "~/.local/share/fish/fish_history"
-            shell-default-height 30
-            shell-default-position 'bottom)
-
      ;; Checkers
      syntax-checking
-     
+
      ;; Completion
      auto-completion
      helm
-     
+
      ;; Emacs
      org
 
@@ -62,18 +54,18 @@ values."
            less-enable-lsp t
            scss-enable-lsp t
            html-enable-lsp t)
-     
+
      (json :variables
            json-fmt-tool 'prettier
            json-fmt-on-save t
            json-backend 'lsp)
-     
+
      (yaml :variables
            yaml-enable-lsp t)
-           
+
      (vue :variables
           vue-backend 'lsp)
-          
+
      (javascript :variables
                  javascript-backend 'lsp
                  javascript-lsp-linter nil
@@ -81,45 +73,70 @@ values."
                  js2-basic-offset 2
                  js-indent-level 2
                  javascript-repl 'nodejs)
-     
+
      (typescript :variables
                  typescript-fmt-on-save t
                  typescript-fmt-tool 'prettier
                  typescript-linter 'tslint
                  typescript-backend 'lsp
                  typescript-lsp-linter nil)
-     
+
      (csharp :variables
              csharp-backend 'lsp)
-    
+
      dotnet
-     
+
      (rust :variables
            rust-backend 'lsp
            rust-format-on-save t)
-           
+
      ;; Source Control
      git
-     
+
      ;; Themes
      themes-megapack
-     
+
      ;; Tools
+     ansible
+
      (dap :variables
           dap-enable-mouse-support t)
-          
-     docker
-          
-     (lsp :variables
-          lsp-rust-server 'rust-analyser)
-     
 
+     docker
+
+     kubernetes
+
+     (lsp :variables
+          lsp-lens-enable t
+          rustic-lsp-server 'rust-analyser)
+
+     prettier
+
+     (shell :variables
+     shell-default-shell 'vterm
+     shell-default-term-shell "/usr/bin/fish"
+     spacemacs-vterm-history-file-location "~/.local/share/fish/fish_history"
+     shell-default-height 30
+     shell-default-position 'bottom)
+
+     (terraform :variables
+                terraform-auto-format-on-save t
+                terraform-backend 'lsp)
+
+     vagrant
    )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages
+   '(
+     pinentry
+     kubernetes-tramp
+     spaceline-all-the-icons
+     rustic
+     yasnippet
+   )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -291,7 +308,7 @@ values."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -306,6 +323,8 @@ values."
    dotspacemacs-show-transient-state-color-guide t
    ;; If non nil unicode symbols are displayed in the mode line. (default t)
    dotspacemacs-mode-line-unicode-symbols t
+
+   dotspacemacs-mode-line-theme 'all-the-icons
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
@@ -374,18 +393,120 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-    
-    (setq-default
-        ;; web-mode
-        web-mode-markup-indent-offset 2
-        web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 2
-        web-mode-attr-indent-offset 2)
-        
-    (require 'dap-firefox)
-    (require 'dap-gdb-lldb)
- )
+   (setq epg-pinentry-mode 'loopback)
 
+   (setq-default
+       ;; web-mode
+       web-mode-markup-indent-offset 2
+       web-mode-css-indent-offset 2
+       web-mode-code-indent-offset 2
+       web-mode-attr-indent-offset 2)
+
+   (require 'dap-lldb)
+   (require 'dap-firefox)
+   (require 'dap-gdb-lldb)
+
+   ;; https://robert.kra.hn/posts/2021-02-07_rust-with-emacs/ 
+   ;;(use-package rustic
+   ;;  :ensure
+   ;;  :bind (:map rustic-mode-map
+   ;;              ("M-j" . lsp-ui-imenu)
+   ;;              ("M-?" . lsp-find-references)
+   ;;              ("C-c C-c l" . flycheck-list-errors)
+   ;;              ("C-c C-c a" . lsp-execute-code-action)
+   ;;              ("C-c C-c r" . lsp-rename)
+   ;;              ("C-c C-c q" . lsp-workspace-restart)
+   ;;              ("C-c C-c Q" . lsp-workspace-shutdown)
+   ;;              ("C-c C-c s" . lsp-rust-analyzer-status))
+   ;;   :config
+   ;;   ;; uncomment for less flashiness
+   ;;   ;; (setq lsp-eldoc-hook nil)
+   ;;   ;; (setq lsp-enable-symbol-highlighting nil)
+   ;;   ;; (setq lsp-signature-auto-activate nil)
+
+   ;;   ;; comment to disable rustfmt on save
+   ;;(setq rustic-format-on-save t)
+   ;;(add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
+
+   (defun rk/rustic-mode-hook ()
+   ;; so that run C-c C-c C-r works without having to confirm
+   (setq-local buffer-save-without-query t))
+
+   (use-package lsp-mode
+     :ensure
+     :commands lsp
+     :custom
+     ;; what to use when checking on-save. "check" is default, I prefer clippy
+     (lsp-rust-analyzer-cargo-watch-command "clippy")
+     (lsp-eldoc-render-all t)
+     (lsp-idle-delay 0.6)
+     :config
+     (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+
+   (use-package lsp-ui
+     :ensure
+     :commands lsp-ui-mode
+     :custom
+     (lsp-ui-peek-always-show t)
+     (lsp-ui-sideline-show-hover t)
+     (lsp-ui-doc-enable nil))
+
+   ;; (use-package company
+   ;;   :ensure
+   ;;   :custom
+   ;;   (company-idle-delay 0.5) ;; how long to wait until popup
+   ;;   ;; (company-begin-commands nil) ;; uncomment to disable popup
+   ;;   :bind
+   ;;   (:map company-active-map
+	 ;;         ("C-n". company-select-next)
+	 ;;         ("C-p". company-select-previous)
+	 ;;         ("M-<". company-select-first)
+	 ;;         ("M->". company-select-last)))
+
+   ;; (use-package yasnippet
+   ;;   :ensure
+   ;;   :config
+   ;;   (yas-reload-all)
+   ;;   (add-hook 'prog-mode-hook 'yas-minor-mode)
+   ;;   (add-hook 'text-mode-hook 'yas-minor-mode))
+
+   ;; (use-package company
+   ;;   ;; ... see above ...
+   ;;   (:map company-mode-map
+	 ;;         ("<tab>". tab-indent-or-complete)
+	 ;;         ("TAB". tab-indent-or-complete)))
+
+   ;; (defun company-yasnippet-or-completion ()
+   ;;   (interactive)
+   ;;   (or (do-yas-expand)
+   ;;       (company-complete-common)))
+
+   ;; (defun check-expansion ()
+   ;;   (save-excursion
+   ;;     (if (looking-at "\\_>") t
+   ;;       (backward-char 1)
+   ;;       (if (looking-at "\\.") t
+   ;;         (backward-char 1)
+   ;;         (if (looking-at "::") t nil)))))
+
+   ;; (defun do-yas-expand ()
+   ;;   (let ((yas/fallback-behavior 'return-nil))
+   ;;     (yas/expand)))
+
+   ;; (defun tab-indent-or-complete ()
+   ;;   (interactive)
+   ;;   (if (minibufferp)
+   ;;       (minibuffer-complete)
+   ;;     (if (or (not yas/minor-mode)
+   ;;             (null (do-yas-expand)))
+   ;;         (if (check-expansion)
+   ;;             (company-complete-common)
+   ;;           (indent-for-tab-command))))) 
+
+   ;; (use-package flycheck :ensure) 
+
+   (pinentry-start)
+)
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
@@ -402,3 +523,25 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(delete-selection-mode nil)
+ '(epg-pinentry-mode 'loopback)
+ '(evil-want-Y-yank-to-eol nil)
+ '(package-selected-packages
+   '(insert-shebang helm-gtags ggtags flycheck-bashate fish-mode counsel-gtags counsel swiper ivy company-shell org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download omnisharp htmlize gnuplot csharp-mode tern xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help yaml-mode web-mode web-beautify toml-mode tide typescript-mode tagedit spotify slim-mode scss-mode sass-mode racer pug-mode livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc intero hlint-refactor hindent helm-spotify-plus multi helm-hoogle helm-css-scss haskell-snippets haml-mode flycheck-rust flycheck-haskell emmet-mode company-web web-completion-data company-ghci company-ghc ghc haskell-mode company-emacs-eclim eclim company-cabal coffee-mode cmm-mode cargo rust-mode smeargle orgit mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit with-editor transient diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired f evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
