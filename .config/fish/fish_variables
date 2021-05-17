@@ -1,6 +1,6 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export GPG_TTY:/dev/pts/1
+SETUVAR --export GPG_TTY:not\x20a\x20tty
 SETUVAR --path PATH:fish_user_paths\x1e/usr/local/bin\x1e/usr/bin\x1e/bin\x1e/usr/X11R6/bin
 SETUVAR SSH_AUTH_SOCK:/run/user/1000/gnupg/S\x2egpg\x2dagent\x2essh
 SETUVAR __fish_initialized:3100
