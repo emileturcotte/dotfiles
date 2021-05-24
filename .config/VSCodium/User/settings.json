@@ -21,4 +21,6 @@
     "rust-client.autoStartRls": false,
     "rust.clippy_preference": "on",
     "rust.rust-analyzer.path": "",
+    "redhat.telemetry.enabled": false,
+    "editor.minimap.enabled": false,
 }

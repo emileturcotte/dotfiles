@@ -1,11 +1,11 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/snap/bin:/home/emileturcotte/.config/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/snap/bin:/home/emileturcotte/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin:$PATH
 
-export ZSH="/home/emileturcotte/.oh-my-zsh"
+export ZSH="/home/emileturcotte/.config/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 CASE_SENSITIVE="true"
 
-plugins=(git)
+plugins=(git tmux)
 
 source $ZSH/oh-my-zsh.sh
 

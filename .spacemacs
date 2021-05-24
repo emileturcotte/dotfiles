@@ -114,8 +114,8 @@ values."
 
      (shell :variables
      shell-default-shell 'vterm
-     shell-default-term-shell "/usr/bin/fish"
-     spacemacs-vterm-history-file-location "~/.local/share/fish/fish_history"
+     shell-default-term-shell "/usr/bin/zsh"
+     spacemacs-vterm-history-file-location "~/.zsh_history"
      shell-default-height 30
      shell-default-position 'bottom)
 
