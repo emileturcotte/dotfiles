@@ -10,7 +10,7 @@ plugins=(git tmux)
 source $ZSH/oh-my-zsh.sh
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_MAGIC_FUNCTIONS="true"
 
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
