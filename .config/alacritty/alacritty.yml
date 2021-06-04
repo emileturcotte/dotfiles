@@ -88,7 +88,21 @@ scrolling:
   history: 5000
 
   # Scrolling distance multiplier.
-  #multiplier: 3
+  multiplier: 3
+
+  # Faux Scrolling
+  #
+  # The `faux_multiplier` setting controls the number
+  # of lines the terminal should scroll when the alternate
+  # screen buffer is active. This is used to allow mouse
+  # scrolling for applications like `man`.
+  #
+  # To disable this completely, set `faux_multiplier` to 0.
+  faux_multiplier: 3
+
+  # Automatically scroll to the bottom when new text is written
+  # to the terminal.
+  auto_scroll: false
 
 # Spaces per Tab (changes require restart)
 #
@@ -97,7 +111,7 @@ scrolling:
 # Some applications, like Emacs, rely on knowing about the width of a tab.
 # To prevent unexpected behavior in these applications, it's also required to
 # change the `it` value in terminfo when altering this setting.
-tabspaces: 4
+tabspaces: 2 
 
 # Font configuration
 font:
@@ -710,7 +724,6 @@ key_bindings:
   - { key: Key0,      mods: Control,       action: ResetFontSize               }
   - { key: Equals,    mods: Control,       action: IncreaseFontSize            }
   - { key: Plus,      mods: Control,       action: IncreaseFontSize            }
-  - { key: Minus,     mods: Control,       action: DecreaseFontSize            }
   - { key: Minus,     mods: Control,       action: DecreaseFontSize            }
   - { key: F11,       mods: None,          action: ToggleFullscreen            }
   - { key: Paste,     mods: None,          action: Paste                       }
