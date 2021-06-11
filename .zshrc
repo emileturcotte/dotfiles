@@ -11,7 +11,11 @@ CASE_SENSITIVE="true"
 plugins=(git
          emacs
          tmux
- 	 kubectl)
+         kubectl
+         zsh-autosuggestions
+         zsh-syntax-highlighting)
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#808080"
          
 source $ZSH/oh-my-zsh.sh
          
