@@ -23,4 +23,5 @@
     "rust.rust-analyzer.path": "",
     "redhat.telemetry.enabled": false,
     "editor.minimap.enabled": false,
+    "debug.allowBreakpointsEverywhere": true,
 }
