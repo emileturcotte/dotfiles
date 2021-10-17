@@ -3,7 +3,7 @@
 	signingkey = 58605F08885C6901
 	email = dev@emileturcotte.com
 [core]
-	editor = vi
+	editor = vim
 [commit]
 	gpgsign = true
 [color "status"]

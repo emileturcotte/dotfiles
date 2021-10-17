@@ -1,15 +1,15 @@
+
+  
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/snap/bin:/home/emileturcotte/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin:$PATH
 export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 
-export EDITOR="emacsclient -t -a ''"
-export VISUAL="emacsclient -c -a emacs"
+export EDITOR="vim"
 
-export ZSH="/home/emileturcotte/.config/.oh-my-zsh"
+export ZSH="$HOME/.config/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 CASE_SENSITIVE="true"
 plugins=(git
-	 suse
          emacs
          kubectl
          zsh-autosuggestions
@@ -34,15 +34,21 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # User configuration
 
 test -s ~/.alias && . ~/.alias || true
-source "/home/emileturcotte/.config/.cargo/env"
 
-alias dotfiles='/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME'
+export CODE="$HOME/Documents/Code"
+alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias k='kubectl'
 alias d='docker'
 
-export CODE_PATH="$HOME/Documents/Code"
+# Rust
+source "$HOME/.config/.cargo/env"
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+export CARGO_HOME="$HOME/.config/.cargo"
 
+# GPG & SSH setup
+export GNUPGHOME="$HOME/.config/.gnupg"
 export GPG_TTY=$(tty)
 export SSH_AUTH_SOCK=`gpgconf --list-dirs agent-ssh-socket`
 gpgconf --launch gpg-agent
+
+
