@@ -266,7 +266,7 @@ globalkeys = mytable.join(
               {description = "run browser", group = "launcher"}),
     awful.key({ altkey }, "space", 
     	function ()
-            os.execute(string.format("dmenu_run -i -fn 'Hack' -nb '%s' -nf '%s' -sb '%s' -sf '%s'",
+            os.execute(string.format("dmenu_run -i -fn 'Terminus 9' -nb '%s' -nf '%s' -sb '%s' -sf '%s'",
             beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
         end,
         {description = "show dmenu", group = "launcher"}), 

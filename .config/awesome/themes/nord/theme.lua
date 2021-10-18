@@ -19,11 +19,13 @@ theme.dir                                       = os.getenv("HOME") .. "/.config
 theme.wallpaper                                 = theme.dir .. "/wall.png"
 theme.font                                      = "Terminus 9"
 theme.fg_normal                                 = "#D8DEE9"
-theme.fg_focus                                  = "#8FBCBB"
+theme.fg_focus                                  = "#88C0D0"
 theme.fg_urgent                                 = "#CC9393"
 theme.bg_normal                                 = "#3B4252"
 theme.bg_focus                                  = "#4C566A"
 theme.bg_urgent                                 = "#1A1A1A"
+theme.widget_light				= "#434C5E"
+theme.widget_dark				= "#2E3440"
 theme.border_width                              = dpi(1)
 theme.border_normal                             = "#3F3F3F"
 theme.border_focus                              = "#7F7F7F"
@@ -166,16 +168,17 @@ local net = lain.widget.net({
     units = 1048576, -- MB
     settings = function()
         widget:set_markup(markup.font(theme.font,
-                          markup("#8FBCBB", " " .. string.format("%02.1f", net_now.received))
+                          markup("#A3BE8C", " " .. string.format("%02.1f", net_now.received))
                           .. " " ..
-                          markup("#88C0D0", " " .. string.format("%02.1f", net_now.sent) .. " ")))
+                          markup("#5E81AC", " " .. string.format("%02.1f", net_now.sent) .. " ")))
     end
 })
 
 -- Separators
 local spr     = wibox.widget.textbox(' ')
-local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
-local arrl_ld = separators.arrow_left("alpha", theme.bg_focus)
+local arrl_fl = separators.arrow_left(theme.bg_normal, theme.widget_light)
+local arrl_dl = separators.arrow_left(theme.widget_dark, theme.widget_light)
+local arrl_ld = separators.arrow_left(theme.widget_light, theme.widget_dark)
 
 function theme.at_screen_connect(s)
     -- Quake application
@@ -224,28 +227,29 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            arrl_ld,
-            wibox.container.background(keyboardlayout, theme.bg_focus),
-	    arrl_dl,
-            memicon,
-            mem.widget,
-            arrl_ld,
-            wibox.container.background(cpuicon, theme.bg_focus),
-            wibox.container.background(cpu.widget, theme.bg_focus),
+            arrl_fl,
+            wibox.container.background(keyboardlayout, theme.widget_light),
+	    wibox.container.background(spr, theme.widget_light),
+	    arrl_ld,
+            wibox.container.background(memicon, theme.widget_dark),
+            wibox.container.background(mem.widget, theme.widget_dark),
             arrl_dl,
-            tempicon,
-            temp.widget,
+            wibox.container.background(cpuicon, theme.widget_light),
+            wibox.container.background(cpu.widget, theme.widget_light),
             arrl_ld,
-            wibox.container.background(baticon, theme.bg_focus),
-            wibox.container.background(bat.widget, theme.bg_focus),
+            wibox.container.background(tempicon, theme.widget_dark),
+            wibox.container.background(temp.widget, theme.widget_dark),
             arrl_dl,
-            neticon,
-            net.widget,
+            wibox.container.background(baticon, theme.widget_light),
+            wibox.container.background(bat.widget, theme.widget_light),
             arrl_ld,
-            wibox.container.background(clock, theme.bg_focus),
-            wibox.container.background(spr, theme.bg_focus),
+            wibox.container.background(neticon, theme.widget_dark),
+            wibox.container.background(net.widget, theme.widget_dark),
             arrl_dl,
-            s.mylayoutbox,
+            wibox.container.background(clock, theme.widget_light),
+            wibox.container.background(spr, theme.widget_light),
+            arrl_ld,
+            wibox.container.background(s.mylayoutbox, theme.widget_dark),
         },
     }
 end

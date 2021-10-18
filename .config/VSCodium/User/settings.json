@@ -3,7 +3,7 @@
     "editor.tabSize": 2,
     "editor.acceptSuggestionOnEnter": "off",
     "editor.tabCompletion": "on",
-    "editor.fontFamily": "Fira Code",
+    "editor.fontFamily": "Hack Nerd Font Mono",
     "editor.fontLigatures": true,
     "editor.formatOnSave": true,
     "workbench.iconTheme": "vscode-icons",

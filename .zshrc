@@ -10,6 +10,7 @@ export ZSH="$HOME/.config/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 CASE_SENSITIVE="true"
 plugins=(git
+	 archlinux
          emacs
          kubectl
          zsh-autosuggestions
@@ -51,4 +52,5 @@ export GPG_TTY=$(tty)
 export SSH_AUTH_SOCK=`gpgconf --list-dirs agent-ssh-socket`
 gpgconf --launch gpg-agent
 
-
+export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
+eval "$(starship init zsh)"
