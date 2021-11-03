@@ -24,4 +24,6 @@
     "redhat.telemetry.enabled": false,
     "editor.minimap.enabled": false,
     "debug.allowBreakpointsEverywhere": true,
+    "git.enableCommitSigning": true,
+    "terminal.integrated.defaultProfile.linux": "zsh",
 }

@@ -277,36 +277,6 @@ globalkeys = mytable.join(
               {description = "destroy all notifications", group = "hotkeys"}),
     awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
-    awful.key({ altkey }, "Up", 
-    	function ()
-            os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-              {description = "volume up", group = "hotkeys"}),
-    awful.key({ altkey }, "Down", 
-    	function ()
-            os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-              {description = "volume down", group = "hotkeys"}),
-    awful.key({ altkey }, "m", 
-    	function ()
-            os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-              {description = "toggle mute", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "m", 
-    	function ()
-            os.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-              {description = "volume 100%", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "0", 
-    	function ()
-            os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-              {description = "volume 0%", group = "hotkeys"}),
     awful.key({ }, "XF86MonBrightnessUp", function () os.execute("xbacklight -inc 10") end,
               {description = "+10%", group = "hotkeys"}),
     awful.key({ }, "XF86MonBrightnessDown", function () os.execute("xbacklight -dec 10") end,
@@ -315,6 +285,8 @@ globalkeys = mytable.join(
               {description = "copy terminal to gtk", group = "hotkeys"}),
     awful.key({ modkey }, "v", function () awful.spawn.with_shell("xsel -b | xsel") end,
               {description = "copy gtk to terminal", group = "hotkeys"}),
+    awful.key({ modkey, "Shift" }, "s", function () awful.spawn.with_shell("scrot -s") end,
+    	      {description = "take screenshot", group = "hotkeys"}),
 
 
     --    TAGS
@@ -381,9 +353,9 @@ globalkeys = mytable.join(
             if client.focus then client.focus:raise() end
         end,
               {description = "focus right", group = "client"}),
-    awful.key({ modkey, "Shift" }, "j", function () awful.client.swap.byidx(  1) end,
+    awful.key({ modkey, "Shift" }, "h", function () awful.client.swap.byidx(  1) end,
               {description = "swap with next client by index", group = "client"}),
-    awful.key({ modkey, "Shift" }, "k", function () awful.client.swap.byidx( -1) end,
+    awful.key({ modkey, "Shift" }, "l", function () awful.client.swap.byidx( -1) end,
               {description = "swap with previous client by index", group = "client"}),
     awful.key({ modkey }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
@@ -418,14 +390,14 @@ globalkeys = mytable.join(
 
 
     --    LAYOUT
-    awful.key({ modkey, altkey }, "l", function () awful.tag.incmwfact( 0.05) end,
-              {description = "increase master width factor", group = "layout"}),
-    awful.key({ modkey, altkey }, "h", function () awful.tag.incmwfact(-0.05) end,
-              {description = "decrease master width factor", group = "layout"}),
-    awful.key({ modkey, "Shift" }, "h", function () awful.tag.incnmaster( 1, nil, true) end,
-              {description = "increase the number of master clients", group = "layout"}),
-    awful.key({ modkey, "Shift" }, "l", function () awful.tag.incnmaster(-1, nil, true) end,
-              {description = "decrease the number of master clients", group = "layout"}),
+    -- awful.key({ modkey, altkey }, "l", function () awful.tag.incmwfact( 0.05) end,
+    --           {description = "increase master width factor", group = "layout"}),
+    -- awful.key({ modkey, altkey }, "h", function () awful.tag.incmwfact(-0.05) end,
+    --           {description = "decrease master width factor", group = "layout"}),
+    -- awful.key({ modkey, "Shift" }, "h", function () awful.tag.incnmaster( 1, nil, true) end,
+    --           {description = "increase the number of master clients", group = "layout"}),
+    -- awful.key({ modkey, "Shift" }, "l", function () awful.tag.incnmaster(-1, nil, true) end,
+    --           {description = "decrease the number of master clients", group = "layout"}),
     awful.key({ modkey, "Control" }, "h", function () awful.tag.incncol( 1, nil, true) end,
               {description = "increase the number of columns", group = "layout"}),
     awful.key({ modkey, "Control" }, "l", function () awful.tag.incncol(-1, nil, true) end,

@@ -13,5 +13,6 @@
 	deleted = red
 [gpg]
 	program = gpg2
+	program = /usr/bin/gpg
 [credential]
 	helper = store
