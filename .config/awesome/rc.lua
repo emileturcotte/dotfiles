@@ -285,7 +285,11 @@ globalkeys = mytable.join(
               {description = "copy terminal to gtk", group = "hotkeys"}),
     awful.key({ modkey }, "v", function () awful.spawn.with_shell("xsel -b | xsel") end,
               {description = "copy gtk to terminal", group = "hotkeys"}),
-    awful.key({ modkey, "Shift" }, "s", function () awful.spawn.with_shell("scrot -s") end,
+    awful.key({ modkey, "Shift" }, "s", 
+    	      function ()
+	          -- Take screenshot and copy it to the clipboard
+	    	  awful.spawn.with_shell("escrotum '/tmp/%F_%T_$wx$h.png' -s -e 'xclip -selection clipboard -target image/png -i $f'") 
+    	      end,
     	      {description = "take screenshot", group = "hotkeys"}),
 
 
