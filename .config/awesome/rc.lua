@@ -68,9 +68,9 @@ local function run_once(cmd_arr)
 end
 
 run_once({ 
-	"urxvtd", 
-	"unclutter -root",
-	"picom --experimental-backends --config ~/.config/picom/picom.conf"
+	"picom --experimental-backends --config ~/.config/picom/picom.conf",
+	"emacs --daemon &",
+	"homelayout"
 }) -- comma-separated entries
 
 -- }}}
@@ -78,11 +78,10 @@ run_once({
 -- {{{ Variable definitions
 
 local themes = {
-    "powerarrow-dark",
-    "nord",
+    "nord"
 }
 
-local chosen_theme = themes[2]
+local chosen_theme = themes[1]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "alacritty"
@@ -95,39 +94,8 @@ local scrlocker    = "slock"
 awful.util.terminal = terminal
 awful.util.tagnames = { "web", "term", "code", "media", "files" }
 awful.layout.layouts = {
-    --awful.layout.suit.floating,
     awful.layout.suit.tile,
-    --awful.layout.suit.tile.left,
-    --awful.layout.suit.tle.bottom,
-    --awful.layout.suit.tile.top,
-    --awful.layout.suit.fair,
-    --awful.layout.suit.fair.horizontal,
-    --awful.layout.suit.spiral,
-    --awful.layout.suit.spiral.dwindle,
-    --awful.layout.suit.max,
-    --awful.layout.suit.max.fullscreen,
-    --awful.layout.suit.magnifier,
-    --awful.layout.suit.corner.nw,
-    --awful.layout.suit.corner.ne,
-    --awful.layout.suit.corner.sw,
-    --awful.layout.suit.corner.se,
-    --lain.layout.cascade,
-    --lain.layout.cascade.tile,
-    --lain.layout.centerwork,
-    --lain.layout.centerwork.horizontal,
-    --lain.layout.termfair,
-    --lain.layout.termfair.center
 }
-
-lain.layout.termfair.nmaster           = 3
-lain.layout.termfair.ncol              = 1
-lain.layout.termfair.center.nmaster    = 3
-lain.layout.termfair.center.ncol       = 1
-lain.layout.cascade.tile.offset_x      = 2
-lain.layout.cascade.tile.offset_y      = 32
-lain.layout.cascade.tile.extra_padding = 5
-lain.layout.cascade.tile.nmaster       = 5
-lain.layout.cascade.tile.ncol          = 2
 
 awful.util.taglist_buttons = mytable.join(
     awful.button({ }, 1, function(t) t:view_only() end),
@@ -241,16 +209,6 @@ globalkeys = mytable.join(
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "w", function () awful.util.mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
-    awful.key({ modkey }, "b", 
-    	function ()
-            for s in screen do
-                s.mywibox.visible = not s.mywibox.visible
-                if s.mybottomwibox then
-                    s.mybottomwibox.visible = not s.mybottomwibox.visible
-                end
-            end
-        end,
-              {description = "toggle wibox", group = "awesome"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
@@ -258,24 +216,24 @@ globalkeys = mytable.join(
 
 
     --	  LAUNCHER
+    awful.key({ modkey }, "space", 
+    	      function ()
+              	  os.execute(string.format("dmenu_run -i -fn 'Terminus 9' -nb '%s' -nf '%s' -sb '%s' -sf '%s'",
+                  beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
+              end,
+              {description = "show dmenu", group = "launcher"}), 
     awful.key({ modkey }, "Return", function () awful.spawn(terminal) end,
-              {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey, }, "z", function () awful.screen.focused().quake:toggle() end,
-              {description = "dropdown application", group = "launcher"}),
-    awful.key({ modkey }, "q", function () awful.spawn(browser) end,
-              {description = "run browser", group = "launcher"}),
-    awful.key({ altkey }, "space", 
-    	function ()
-            os.execute(string.format("dmenu_run -i -fn 'Terminus 9' -nb '%s' -nf '%s' -sb '%s' -sf '%s'",
-            beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
-        end,
-        {description = "show dmenu", group = "launcher"}), 
+              {description = "launch terminal", group = "launcher"}),
+    awful.key({ modkey }, "b", function () awful.spawn(browser) end,
+              {description = "launch browser", group = "launcher"}),
+    awful.key({ modkey }, "e", function () aweful.spawn(editor) end,
+    	      {description = "launch editor", group = "launcher"}),
 
 
     --    HOTKEYS
     awful.key({ "Control",           }, "space", function() naughty.destroy_all_notifications() end,
               {description = "destroy all notifications", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
+    awful.key({ modkey, altkey }, "l", function () os.execute(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
     awful.key({ }, "XF86MonBrightnessUp", function () os.execute("xbacklight -inc 10") end,
               {description = "+10%", group = "hotkeys"}),
@@ -308,24 +266,10 @@ globalkeys = mytable.join(
               {description = "view next", group = "tag"}),
     awful.key({ modkey }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
-    awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
-              {description = "view  previous nonempty", group = "tag"}),
-    awful.key({ altkey }, "Right", function () lain.util.tag_view_nonempty(1) end,
-              {description = "view  previous nonempty", group = "tag"}),
     awful.key({ altkey, "Control" }, "+", function () lain.util.useless_gaps_resize(1) end,
               {description = "increment useless gaps", group = "tag"}),
     awful.key({ altkey, "Control" }, "-", function () lain.util.useless_gaps_resize(-1) end,
               {description = "decrement useless gaps", group = "tag"}),
-    awful.key({ modkey, "Shift" }, "n", function () lain.util.add_tag() end,
-              {description = "add new tag", group = "tag"}),
-    awful.key({ modkey, "Shift" }, "r", function () lain.util.rename_tag() end,
-              {description = "rename tag", group = "tag"}),
-    awful.key({ modkey, "Shift" }, "Left", function () lain.util.move_tag(-1) end,
-              {description = "move tag to the left", group = "tag"}),
-    awful.key({ modkey, "Shift" }, "Right", function () lain.util.move_tag(1) end,
-              {description = "move tag to the right", group = "tag"}),
-    awful.key({ modkey, "Shift" }, "d", function () lain.util.delete_tag() end,
-              {description = "delete tag", group = "tag"}),
 
 	   
     --    CLIENT
@@ -390,72 +334,13 @@ globalkeys = mytable.join(
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
               {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
-              {description = "focus the previous screen", group = "screen"}),
+              {description = "focus the previous screen", group = "screen"})
 
 
     --    LAYOUT
-    -- awful.key({ modkey, altkey }, "l", function () awful.tag.incmwfact( 0.05) end,
-    --           {description = "increase master width factor", group = "layout"}),
-    -- awful.key({ modkey, altkey }, "h", function () awful.tag.incmwfact(-0.05) end,
-    --           {description = "decrease master width factor", group = "layout"}),
-    -- awful.key({ modkey, "Shift" }, "h", function () awful.tag.incnmaster( 1, nil, true) end,
-    --           {description = "increase the number of master clients", group = "layout"}),
-    -- awful.key({ modkey, "Shift" }, "l", function () awful.tag.incnmaster(-1, nil, true) end,
-    --           {description = "decrease the number of master clients", group = "layout"}),
-    awful.key({ modkey, "Control" }, "h", function () awful.tag.incncol( 1, nil, true) end,
-              {description = "increase the number of columns", group = "layout"}),
-    awful.key({ modkey, "Control" }, "l", function () awful.tag.incncol(-1, nil, true) end,
-              {description = "decrease the number of columns", group = "layout"}),
-    awful.key({ modkey }, "space", function () awful.layout.inc( 1) end,
-              {description = "select next", group = "layout"}),
-    awful.key({ modkey, "Shift" }, "space", function () awful.layout.inc(-1) end,
-              {description = "select previous", group = "layout"}),
 
 
     --    WIDGETS
-    awful.key({ altkey, }, "c", function () if beautiful.cal then beautiful.cal.show(7) end end,
-              {description = "show calendar", group = "widgets"}),
-    awful.key({ altkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end,
-              {description = "show filesystem", group = "widgets"}),
-    awful.key({ altkey, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end,
-              {description = "show weather", group = "widgets"}),
-    awful.key({ altkey, "Control" }, "Up", 
-    	function ()
-            os.execute("mpc toggle")
-            beautiful.mpd.update()
-        end,
-              {description = "mpc toggle", group = "widgets"}),
-    awful.key({ altkey, "Control" }, "Down", 
-    	function ()
-            os.execute("mpc stop")
-            beautiful.mpd.update()
-        end,
-              {description = "mpc stop", group = "widgets"}),
-    awful.key({ altkey, "Control" }, "Left",
-        function ()
-            os.execute("mpc prev")
-            beautiful.mpd.update()
-        end,
-              {description = "mpc prev", group = "widgets"}),
-    awful.key({ altkey, "Control" }, "Right",
-        function ()
-            os.execute("mpc next")
-            beautiful.mpd.update()
-        end,
-              {description = "mpc next", group = "widgets"}),
-    awful.key({ altkey }, "0",
-        function ()
-            local common = { text = "MPD widget ", position = "top_middle", timeout = 2 }
-            if beautiful.mpd.timer.started then
-                beautiful.mpd.timer:stop()
-                common.text = common.text .. lain.util.markup.bold("OFF")
-            else
-                beautiful.mpd.timer:start()
-                common.text = common.text .. lain.util.markup.bold("ON")
-            end
-            naughty.notify(common)
-        end,
-              {description = "mpc on/off", group = "widgets"})
 )
 
 clientkeys = mytable.join(

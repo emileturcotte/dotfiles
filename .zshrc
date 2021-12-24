@@ -1,10 +1,10 @@
 
   
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin:$PATH:$HOME/.emacs.d/bin
 export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 
-export EDITOR="vim"
+export EDITOR="emacsclient -c -a 'emacs'"
 
 export ZSH="$HOME/.config/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
@@ -24,14 +24,6 @@ source $ZSH/oh-my-zsh.sh
 DISABLE_MAGIC_FUNCTIONS="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
 # User configuration
 
 test -s ~/.alias && . ~/.alias || true
@@ -40,6 +32,10 @@ export CODE="$HOME/Documents/Code"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias k='kubectl'
 alias d='docker'
+alias blue='bluetoothctl'
+
+# Doom Emacs
+export DOOMDIR="$HOME/.config/doom"
 
 # Rust
 source "$HOME/.config/.cargo/env"
@@ -51,6 +47,19 @@ export GNUPGHOME="$HOME/.config/.gnupg"
 export GPG_TTY=$(tty)
 export SSH_AUTH_SOCK=`gpgconf --list-dirs agent-ssh-socket`
 gpgconf --launch gpg-agent
+
+# dotNET
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+# zsh parameter completion for the dotnet CLI
+
+_dotnet_zsh_complete()
+{
+  local completions=("$(dotnet complete "$words")")
+
+  reply=( "${(ps:\n:)completions}" )
+}
+
+compctl -K _dotnet_zsh_complete dotnet
 
 export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
 eval "$(starship init zsh)"
