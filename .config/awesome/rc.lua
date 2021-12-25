@@ -154,6 +154,7 @@ wp_filter = function(s) return string.match(s,"%.png$") or string.match(s,"%.jpg
 wp_files = scandir(wp_path, wp_filter)
 
 -- Select random wallpaper
+math.randomseed(os.time())
 wp_index = math.random(1, #wp_files)
 beautiful.wallpaper = wp_path .. wp_files[wp_index]
 
