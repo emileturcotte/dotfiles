@@ -58,6 +58,22 @@ end
 
 -- }}}
 
+-- {{{ Autostart windowless processes
+
+-- This function will run once every time Awesome is started
+local function run_once(cmd_arr)
+    for _, cmd in ipairs(cmd_arr) do
+        awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
+    end
+end
+
+run_once({ 
+	"picom --experimental-backends --config ~/.config/picom/picom.conf",
+	"emacs --daemon &"
+}) -- comma-separated entries
+
+-- }}}
+
 -- {{{ Variable definitions
 
 local themes = {
@@ -71,6 +87,7 @@ local terminal     = "alacritty"
 local vi_focus     = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "vim"
+local visual       = os.getenv("VISUAL") or "emacs"
 local browser      = "brave"
 local scrlocker    = "slock"
 
@@ -245,7 +262,7 @@ globalkeys = mytable.join(
               {description = "launch terminal", group = "launcher"}),
     awful.key({ modkey }, "b", function () awful.spawn(browser) end,
               {description = "launch browser", group = "launcher"}),
-    awful.key({ modkey }, "e", function () awful.spawn(editor) end,
+    awful.key({ modkey }, "e", function () awful.spawn(visual) end,
     	      {description = "launch editor", group = "launcher"}),
     awful.key({ modkey }, "f", function () awful.spawn("pcmanfm") end,
     	      {description = "launch file manager", group = "launcher"}),
@@ -608,18 +625,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- }}}
 
--- {{{ Autostart windowless processes
 
--- This function will run once every time Awesome is started
-local function run_once(cmd_arr)
-    for _, cmd in ipairs(cmd_arr) do
-        awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
-    end
-end
-
-run_once({ 
-	"picom --experimental-backends --config ~/.config/picom/picom.conf",
-	"emacs --daemon &"
-}) -- comma-separated entries
-
--- }}}
