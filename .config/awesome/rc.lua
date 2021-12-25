@@ -58,23 +58,6 @@ end
 
 -- }}}
 
--- {{{ Autostart windowless processes
-
--- This function will run once every time Awesome is started
-local function run_once(cmd_arr)
-    for _, cmd in ipairs(cmd_arr) do
-        awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
-    end
-end
-
-run_once({ 
-	"picom --experimental-backends --config ~/.config/picom/picom.conf",
-	"emacs --daemon &",
-	"homelayout"
-}) -- comma-separated entries
-
--- }}}
-
 -- {{{ Variable definitions
 
 local themes = {
@@ -620,5 +603,22 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+-- }}}
+
+-- {{{ Autostart windowless processes
+
+-- This function will run once every time Awesome is started
+local function run_once(cmd_arr)
+    for _, cmd in ipairs(cmd_arr) do
+        awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
+    end
+end
+
+run_once({ 
+	"picom --experimental-backends --config ~/.config/picom/picom.conf",
+	"emacs --daemon &",
+	"homelayout"
+}) -- comma-separated entries
 
 -- }}}
