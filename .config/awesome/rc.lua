@@ -245,8 +245,10 @@ globalkeys = mytable.join(
               {description = "launch terminal", group = "launcher"}),
     awful.key({ modkey }, "b", function () awful.spawn(browser) end,
               {description = "launch browser", group = "launcher"}),
-    awful.key({ modkey }, "e", function () aweful.spawn(editor) end,
+    awful.key({ modkey }, "e", function () awful.spawn(editor) end,
     	      {description = "launch editor", group = "launcher"}),
+    awful.key({ modkey }, "f", function () awful.spawn("pcmanfm") end,
+    	      {description = "launch file manager", group = "launcher"}),
 
 
     --    HOTKEYS
@@ -617,8 +619,7 @@ end
 
 run_once({ 
 	"picom --experimental-backends --config ~/.config/picom/picom.conf",
-	"emacs --daemon &",
-	"homelayout"
+	"emacs --daemon &"
 }) -- comma-separated entries
 
 -- }}}
