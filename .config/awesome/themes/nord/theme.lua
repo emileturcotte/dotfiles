@@ -11,6 +11,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local dpi   = require("beautiful.xresources").apply_dpi
 local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
+local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 
 local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -96,23 +97,20 @@ local separators = lain.util.separators
 local keyboardlayout = awful.widget.keyboardlayout:new()
 
 -- Textclock
-local clockicon = wibox.widget.imagebox(theme.widget_clock)
-local clock = awful.widget.watch(
-    "date +'%a %d %b %R'", 60,
-    function(widget, stdout)
-        widget:set_markup(" " .. markup.font(theme.font, stdout))
-    end
-)
+local clock = wibox.widget.textclock()
 
 -- Calendar
-theme.cal = lain.widget.cal({
-    attach_to = { clock },
-    notification_preset = {
-        font = "Terminus 10",
-        fg   = theme.fg_normal,
-        bg   = theme.bg_normal
-    }
+local cal = calendar_widget({
+    theme = 'nord',
+    placement = 'top_right',
+    radius = 8
 })
+
+clock:connect_signal("button::press",
+    function(_, _, _, button)
+        if button == 1 then cal.toggle() end
+    end
+)
 
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)
