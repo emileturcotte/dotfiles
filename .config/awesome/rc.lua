@@ -68,10 +68,9 @@ end
 
 run_once({ 
 	"picom --experimental-backends --config ~/.config/picom/picom.conf",
-	"emacs --daemon &",
+	"emacs --daemon",
 	"flameshot",
 	"nm-applet",
-	"pnmixer",
 	"blueman-applet"
 
 }) -- comma-separated entries
