@@ -68,7 +68,12 @@ end
 
 run_once({ 
 	"picom --experimental-backends --config ~/.config/picom/picom.conf",
-	"emacs --daemon &"
+	"emacs --daemon &",
+	"flameshot",
+	"nm-applet",
+	"pnmixer",
+	"blueman-applet"
+
 }) -- comma-separated entries
 
 -- }}}
@@ -240,7 +245,7 @@ root.buttons(mytable.join(
 globalkeys = mytable.join(
 
     --    AWESOME
-    awful.key({ modkey }, "s", hotkeys_popup.show_help,
+    awful.key({ modkey }, "F1", hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "w", function () awful.util.mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
@@ -276,14 +281,9 @@ globalkeys = mytable.join(
               {description = "+10%", group = "hotkeys"}),
     awful.key({ }, "XF86MonBrightnessDown", function () os.execute("xbacklight -dec 10") end,
               {description = "-10%", group = "hotkeys"}),
-    awful.key({ modkey }, "c", function () awful.spawn.with_shell("xsel | xsel -i -b") end,
-              {description = "copy terminal to gtk", group = "hotkeys"}),
-    awful.key({ modkey }, "v", function () awful.spawn.with_shell("xsel -b | xsel") end,
-              {description = "copy gtk to terminal", group = "hotkeys"}),
-    awful.key({ modkey, "Shift" }, "s", 
+    awful.key({ modkey, }, "s", 
     	      function ()
-	          -- Take screenshot and copy it to the clipboard
-	    	  awful.spawn.with_shell("escrotum '/tmp/%F_%T_$wx$h.png' -s -e 'xclip -selection clipboard -target image/png -i $f'") 
+	    	  awful.spawn.with_shell("flameshot gui -p ~/Pictures/screenshots")
     	      end,
     	      {description = "take screenshot", group = "hotkeys"}),
 
