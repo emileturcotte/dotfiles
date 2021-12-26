@@ -106,11 +106,18 @@ local cal = calendar_widget({
     radius = 8
 })
 
-clock:connect_signal("button::press",
-    function(_, _, _, button)
-        if button == 1 then cal.toggle() end
+clock:connect_signal("mouse::enter",
+    function(_, _, _, _)
+        cal.toggle()
     end
 )
+
+clock:connect_signal("mouse::leave",
+    function(_, _, _, _)
+    	cal.toggle()
+    end
+)
+
 
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)
