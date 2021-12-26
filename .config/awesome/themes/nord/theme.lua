@@ -10,6 +10,7 @@ local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 local dpi   = require("beautiful.xresources").apply_dpi
+local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
 
 local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -173,6 +174,10 @@ local net = lain.widget.net({
     end
 })
 
+local logout = logout_menu_widget {
+    onlock = function() awful.spawn.with_shell("slock") end
+}
+
 -- Separators
 local spr     = wibox.widget.textbox(' ')
 local arrl_fl = separators.arrow_left(theme.bg_normal, theme.widget_light)
@@ -182,24 +187,16 @@ local arrl_ld = separators.arrow_left(theme.widget_light, theme.widget_dark)
 function theme.at_screen_connect(s)
     -- Quake application
     s.quake = lain.util.quake({ app = awful.util.terminal })
-
+	
     -- Tags
     awful.tag(awful.util.tagnames, s, awful.layout.layouts)
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
-    -- Create an imagebox widget which will contains an icon indicating which layout we're using.
-    -- We need one layoutbox per screen.
-    s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(my_table.join(
-                           awful.button({}, 1, function () awful.layout.inc( 1) end),
-                           awful.button({}, 2, function () awful.layout.set( awful.layout.layouts[1] ) end),
-                           awful.button({}, 3, function () awful.layout.inc(-1) end),
-                           awful.button({}, 4, function () awful.layout.inc( 1) end),
-                           awful.button({}, 5, function () awful.layout.inc(-1) end)))
+    
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
-
+	
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(20), bg = theme.bg_normal, fg = theme.fg_normal, visible = true })
 
@@ -241,7 +238,7 @@ function theme.at_screen_connect(s)
             wibox.container.background(clock, theme.widget_light),
             wibox.container.background(spr, theme.widget_light),
             arrl_ld,
-            wibox.container.background(s.mylayoutbox, theme.widget_dark),
+            wibox.container.background(logout, theme.widget_dark),
         },
     }
 end
