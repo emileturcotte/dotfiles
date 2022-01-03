@@ -48,3 +48,9 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+
+
+;;(package! clipetty :recipe
+;;  (:ensure t
+;;   :hook (after-init . global-clipetty-mode)))
+(package! evil-tutor)

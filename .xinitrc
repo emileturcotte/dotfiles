@@ -35,4 +35,5 @@ fi
 # Launch Window Manager
 xbindkeys
 
-exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
+_logdir='.cache/awesome'
+exec /usr/bin/awesome >> $_logdir/stdout 2>> $_logdir/stderr

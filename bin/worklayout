@@ -1,7 +1,7 @@
 #!/bin/sh
 
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
-
+exec &> /dev/null
 _dpi=96
 _laptop="eDP-1"
 _primary="DP-1-1"

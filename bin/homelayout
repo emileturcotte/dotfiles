@@ -1,6 +1,7 @@
 #!/bin/sh
 
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
+exec &> /dev/null
 
 _dpi=96
 _laptop="eDP-1"
@@ -19,5 +20,5 @@ xrandr --dpi $_dpi \
        --output $_primary --primary --mode 1920x1080 --right-of $_laptop --rate 60 --rotate normal \
        --output $_secondary --mode 1920x1080 --right-of $_primary --rate 60 --rotate normal
 
-echo "Xft.dpi: ${_dpi}" | xrdb -merge
+echo "Xft.dpi: ${_dpi}" | xrdb -merge 
 echo 'awesome.restart()' | awesome-client

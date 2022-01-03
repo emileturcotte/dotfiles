@@ -28,6 +28,7 @@ alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias k='kubectl'
 alias d='docker'
 alias blue='bluetoothctl'
+alias vpn='protonvpn-cli'
 
 ### Doom Emacs ###
 export DOOMDIR="$HOME/.config/doom"
