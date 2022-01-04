@@ -9,6 +9,9 @@
 (setq user-full-name "Emile Turcotte"
       user-mail-address "dev@emileturcotte.com")
 
+
+;; FONTS
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -26,6 +29,21 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-nord)
+
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
+      doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font Mono" :size 15)
+      doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 20))
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic))
+
+
+;; LINE SETTINGS
+
+(setq display-line-numbers-type t)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
