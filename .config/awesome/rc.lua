@@ -393,21 +393,23 @@ for i = 1, 9 do
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
-                        local screen = awful.screen.focused()
-                        local tag = screen.tags[i]
-                        if tag then
-                           tag:view_only()
-                        end
+                      for s in screen do
+		          local tag = s.tags[i]
+                          if tag then
+                              tag:view_only()
+                          end
+		      end
                   end,
                   {description = "view tag #"..i, group = "tag"}),
         -- Toggle tag display.
         awful.key({ modkey, "Control" }, "#" .. i + 9,
                   function ()
-                      local screen = awful.screen.focused()
-                      local tag = screen.tags[i]
-                      if tag then
-                         awful.tag.viewtoggle(tag)
-                      end
+                      for s in screen do
+		          local tag = s.tags[i]
+			  if tag then
+			      awful.tag.viewtoggle(tag)
+			  end
+		      end
                   end,
                   {description = "toggle tag #" .. i, group = "tag"}),
         -- Move client to tag.
