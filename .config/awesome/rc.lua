@@ -268,7 +268,8 @@ globalkeys = mytable.join(
     	      {description = "launch editor", group = "launcher"}),
     awful.key({ modkey }, "f", function () awful.spawn("pcmanfm") end,
     	      {description = "launch file manager", group = "launcher"}),
-
+    awful.key({ modkey }, "v", function () awful.spawn("pavucontrol") end,
+    	      {description = "launch volume mixer", group = "launcher"}),
 
     --    HOTKEYS
     awful.key({ "Control",           }, "space", function() naughty.destroy_all_notifications() end,
