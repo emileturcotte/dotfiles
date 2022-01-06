@@ -61,6 +61,17 @@ _dotnet_zsh_complete()
 
 compctl -K _dotnet_zsh_complete dotnet
 
+autoload -U +X bashcompinit && bashcompinit
+### Git ###
+#if [ -f /usr/share/bash-completion/completions/git-completion.zsh ]; then
+#    source /usr/share/bash-completion/completions/git-completion.zsh
+#fi
+
+### Azure CLI ###
+if [ -f /usr/share/bash-completion/completions/az ]; then 
+    source /usr/share/bash-completion/completions/az
+fi
+
 ### Starship ###
 export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
 eval "$(starship init zsh)"
