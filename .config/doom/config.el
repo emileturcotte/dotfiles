@@ -29,7 +29,7 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-nord)
-
+(setq doom-themes-treemacs-theme "doom-colors")
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
       doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font Mono" :size 15)
       doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 20))
