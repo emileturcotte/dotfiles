@@ -71,7 +71,8 @@ run_once({
 	"emacs --daemon",
 	"flameshot",
 	"nm-applet",
-	"xautolock -time 5 -locker slock -nowlocker slock -detectsleep"
+	"xautolock -time 5 -locker slock -nowlocker slock -detectsleep",
+	"caffeine"
 
 }) -- comma-separated entries
 
