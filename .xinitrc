@@ -26,14 +26,16 @@ fi
 # start some nice programs
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
- done
- unset f
+    for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+        [ -x "$f" ] && . "$f"
+    done
+    unset f
 fi
 
-# Launch Window Manager
 xbindkeys
+xcape -e 'Control_L=Escape'
+/home/emile/bin/homelayout
 
+# Launch Window Manager
 _logdir='.cache/awesome'
 exec /usr/bin/awesome >> $_logdir/stdout 2>> $_logdir/stderr
