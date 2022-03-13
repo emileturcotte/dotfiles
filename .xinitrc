@@ -34,7 +34,6 @@ fi
 
 xbindkeys
 xcape -e 'Control_L=Escape'
-/home/emile/bin/homelayout
 
 # Launch Window Manager
 _logdir='.cache/awesome'

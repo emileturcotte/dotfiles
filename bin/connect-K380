@@ -1,9 +1,6 @@
 #!/bin/sh
 _mac=34:88:5D:C7:F5:E3
 
-bluetoothctl remove $_mac
-bluetoothctl scan on
-bluetoothctl pair $_mac
-bluetoothctl connect $_mac 
 bluetoothctl trust $_mac
+bluetoothctl connect $_mac 
 

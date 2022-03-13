@@ -72,7 +72,8 @@ run_once({
 	"flameshot",
 	"nm-applet",
 	"xautolock -time 5 -locker slock -nowlocker slock -detectsleep",
-	"caffeine"
+	"caffeine",
+	"bluetoothctl scan on"
 
 }) -- comma-separated entries
 

@@ -1,11 +1,11 @@
 [user]
-	name = Emile Turcotte
+	name = Émile Turcotte
 	signingkey = 58605F08885C6901
 	email = dev@emileturcotte.com
 [core]
 	editor = vim
 [commit]
-	gpgsign = true
+	gpgsign = false
 [color "status"]
 	changed = yellow
 	added = green
@@ -13,6 +13,6 @@
 	deleted = red
 [gpg]
 	program = gpg2
-	program = /usr/bin/gpg
+	program = /usr/bin/gpg2
 [credential]
 	helper = store

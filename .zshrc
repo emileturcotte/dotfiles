@@ -23,6 +23,8 @@ source $ZSH/oh-my-zsh.sh
 
 test -s ~/.alias && . ~/.alias || true
 
+export QT_STYLE_OVERRIDE=kvantum
+export QT_QPA_PLATFORMTHEME=qt5ct
 export CODE="$HOME/Documents/Code"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias k='kubectl'
