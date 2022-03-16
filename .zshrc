@@ -3,29 +3,15 @@ export EDITOR="emacsclient -t -a ''"
 export VISUAL="emacsclient -c -a 'emacs'"
 
 export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin:$PATH:$HOME/.emacs.d/bin
+export LC_ALL="en_US.UTF-8"
+export XDG_CONFIG_HOME="$HOME/.config"
 
-### ZSH
-export ZSH="$HOME/.config/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
-CASE_SENSITIVE="true"
-DISABLE_MAGIC_FUNCTIONS="true"
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-plugins=(git
-         kubectl
-         zsh-autosuggestions
-         zsh-syntax-highlighting)
-
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#808080"
-         
-source $ZSH/oh-my-zsh.sh
-         
 # User configuration
 
 test -s ~/.alias && . ~/.alias || true
 
 export QT_STYLE_OVERRIDE=kvantum
 export QT_QPA_PLATFORMTHEME=qt5ct
-export CODE="$HOME/Documents/Code"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias k='kubectl'
 alias d='docker'
@@ -41,9 +27,9 @@ alias doomupgrade="~/.emacs.d/bin/doom upgrade"
 alias doompurge="~/.emacs.d/bin/doom purge"
 
 ### Rust ###
-source "$HOME/.config/.cargo/env"
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
-export CARGO_HOME="$HOME/.config/.cargo"
+#source "$HOME/.config/.cargo/env"
+#export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+#export CARGO_HOME="$HOME/.config/.cargo"
 
 ### GPG & SSH ###
 export GNUPGHOME="$HOME/.config/.gnupg"
@@ -72,6 +58,16 @@ autoload -U +X bashcompinit && bashcompinit
 ### Azure CLI ###
 if [ -f /usr/share/bash-completion/completions/az ]; then 
     source /usr/share/bash-completion/completions/az
+fi
+
+### ZSH Autosuggestion ###
+if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+### ZSH Syntax Highlighting ###
+if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 ### Starship ###

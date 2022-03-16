@@ -138,6 +138,8 @@ live_config_reload: true
 
 shell:
   program: /usr/bin/zsh
+  args:
+    - --login
 
 # Send ESC (\x1b) before characters when alt is pressed.
 #alt_send_esc: true
