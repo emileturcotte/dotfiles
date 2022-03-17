@@ -97,7 +97,7 @@ local browser      = "brave"
 local scrlocker    = "slock"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "web", "term", "code", "media", "files" }
+awful.util.tagnames = { "web", "term", "code", "media", "files", "vm" }
 awful.layout.layouts = {
     awful.layout.suit.tile,
 }
@@ -205,22 +205,18 @@ awful.util.mymainmenu = freedesktop.menu.build {
     }
 }
 
--- Set the Menubar terminal for applications that require it
---menubar.utils.terminal = terminal
-
 -- }}}
 
 -- {{{ Screen
 
--- No borders when rearranging only 1 non-floating or maximized client
+-- Set client border
 screen.connect_signal("arrange", function (s)
-    local only_one = #s.tiled_clients == 1
     for _, c in pairs(s.clients) do
-        if only_one and not c.floating or c.maximized or c.fullscreen then
-            c.border_width = 0
-        else
-            c.border_width = beautiful.border_width
-        end
+	if c.maximized or c.fullscreen then
+  	    c.border_width = 0
+	else
+	    c.border_width = beautiful.border_width
+	end
     end
 end)
 
@@ -259,8 +255,8 @@ globalkeys = mytable.join(
     --	  LAUNCHER
     awful.key({ modkey }, "space", 
     	      function ()
-              	  os.execute(string.format("dmenu_run -i -fn 'Terminus 9' -nb '%s' -nf '%s' -sb '%s' -sf '%s'",
-                  beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
+              	  os.execute(string.format("dmenu_run -i -fn '%s' -nb '%s' -nf '%s' -sb '%s' -sf '%s'",
+                  beautiful.font, beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
               end,
               {description = "show dmenu", group = "launcher"}), 
     awful.key({ modkey }, "Return", function () awful.spawn(terminal) end,
