@@ -1,22 +1,13 @@
-export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
-export EDITOR="emacsclient -t -a ''"
-export VISUAL="emacsclient -c -a 'emacs'"
-
-export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin:$PATH:$HOME/.emacs.d/bin
-export LC_ALL="en_US.UTF-8"
-export XDG_CONFIG_HOME="$HOME/.config"
-
 # User configuration
 
 test -s ~/.alias && . ~/.alias || true
 
-export QT_STYLE_OVERRIDE=kvantum
-export QT_QPA_PLATFORMTHEME=qt5ct
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias k='kubectl'
 alias d='docker'
 alias blue='bluetoothctl'
 alias vpn='protonvpn-cli'
+alias lf='lfub'
 
 ### Doom Emacs ###
 export DOOMDIR="$HOME/.config/doom"
@@ -25,11 +16,6 @@ alias doomsync="~/.emacs.d/bin/doom sync"
 alias doomdoctor="~/.emacs.d/bin/doom doctor"
 alias doomupgrade="~/.emacs.d/bin/doom upgrade"
 alias doompurge="~/.emacs.d/bin/doom purge"
-
-### Rust ###
-#source "$HOME/.config/.cargo/env"
-#export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
-#export CARGO_HOME="$HOME/.config/.cargo"
 
 ### GPG & SSH ###
 export GNUPGHOME="$HOME/.config/.gnupg"
@@ -49,11 +35,10 @@ _dotnet_zsh_complete()
 
 compctl -K _dotnet_zsh_complete dotnet
 
-autoload -U +X bashcompinit && bashcompinit
-### Git ###
-#if [ -f /usr/share/bash-completion/completions/git-completion.zsh ]; then
-#    source /usr/share/bash-completion/completions/git-completion.zsh
-#fi
+zstyle ':completion:*:*:git:*' script ~/.config/zsh/git-completion.bash
+fpath=(~/.config/zsh $fpath)
+
+autoload -Uz compinit && compinit
 
 ### Azure CLI ###
 if [ -f /usr/share/bash-completion/completions/az ]; then 
