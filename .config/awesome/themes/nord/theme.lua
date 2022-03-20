@@ -18,14 +18,15 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/nord"
 theme.font                                      = "Rubik 10"
-theme.fg_normal                                 = "#D8DEE9"
+theme.fg_normal                                 = "#ECEFF4"
 theme.fg_focus                                  = "#D8DEE9"
 theme.fg_urgent                                 = "#CC9393"
 theme.bg_normal                                 = "#3B4252"
 theme.bg_focus                                  = "#5E81AC"
 theme.bg_urgent                                 = "#1A1A1A"
-theme.widget_light				= "#5E81AC"
-theme.widget_dark				= "#434C5E"
+theme.widget_accent				= "#8FBCBB"
+theme.widget_light				= "#81A1C1"
+theme.widget_dark				= "#5E81AC"
 theme.border_width                              = dpi(2)
 theme.border_normal                             = "#5E81AC"
 theme.border_focus                              = "#8FBCBB"
@@ -152,9 +153,9 @@ local net = lain.widget.net({
     units = 1048576, -- MB
     settings = function()
         widget:set_markup(markup.font(theme.font,
-                          markup("#A3BE8C", " " .. string.format("%02.1f", net_now.received))
+                          markup(theme.fg_normal, " " .. string.format("%02.1f", net_now.received))
                           .. " " ..
-                          markup("#5E81AC", " " .. string.format("%02.1f", net_now.sent) .. " ")))
+                          markup(theme.fg_normal, " " .. string.format("%02.1f", net_now.sent) .. " ")))
     end
 })
 
@@ -164,7 +165,8 @@ local logout = logout_menu_widget {
 
 -- Separators
 local spr     = wibox.widget.textbox(' ')
-local arrl_fl = separators.arrow_left(theme.bg_normal, theme.widget_light)
+local arrl_fa = separators.arrow_left(theme.bg_normal, theme.widget_accent)
+local arrl_al = separators.arrow_left(theme.widget_accent, theme.widget_dark)
 local arrl_dl = separators.arrow_left(theme.widget_dark, theme.widget_light)
 local arrl_ld = separators.arrow_left(theme.widget_light, theme.widget_dark)
 
@@ -200,10 +202,10 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            arrl_fl,
-            wibox.container.background(keyboardlayout, theme.widget_light),
-	    wibox.container.background(spr, theme.widget_light),
-	    arrl_ld,
+            arrl_fa,
+            wibox.container.background(keyboardlayout, theme.widget_accent),
+	    wibox.container.background(spr, theme.widget_accent),
+	    arrl_al,
             wibox.container.background(memicon, theme.widget_dark),
             wibox.container.background(mem.widget, theme.widget_dark),
             arrl_dl,

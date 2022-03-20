@@ -39,11 +39,10 @@ zstyle ':completion:*:*:git:*' script ~/.config/zsh/git-completion.bash
 fpath=(~/.config/zsh $fpath)
 
 autoload -Uz compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
 
-### Azure CLI ###
-if [ -f /usr/share/bash-completion/completions/az ]; then 
-    source /usr/share/bash-completion/completions/az
-fi
+source <(kubectl completion zsh)
+source ~/.config/zsh/az.completion
 
 ### ZSH Autosuggestion ###
 if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then

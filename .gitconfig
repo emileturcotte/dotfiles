@@ -5,7 +5,7 @@
 [core]
 	editor = vim
 [commit]
-	gpgsign = false
+	gpgsign = true
 [color "status"]
 	changed = yellow
 	added = green
@@ -15,4 +15,5 @@
 	program = gpg2
 	program = /usr/bin/gpg2
 [credential]
-	helper = store
+	helper = /usr/local/bin/git-credential-manager-core
+	credentialStore = gpg
