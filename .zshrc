@@ -5,6 +5,7 @@ test -s ~/.alias && . ~/.alias || true
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias k='kubectl'
 alias d='docker'
+alias g='git'
 alias blue='bluetoothctl'
 alias vpn='protonvpn-cli'
 alias lf='lfub'
@@ -25,7 +26,7 @@ gpgconf --launch gpg-agent
 
 ### dotNET ###
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-
+export PATH="$PATH:~/.dotnet/tools"
 _dotnet_zsh_complete()
 {
   local completions=("$(dotnet complete "$words")")
@@ -52,6 +53,11 @@ fi
 ### ZSH Syntax Highlighting ###
 if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+### ZSH VI Mode ###
+if [ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]; then
+    source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 fi
 
 ### Starship ###

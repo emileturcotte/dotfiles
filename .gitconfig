@@ -15,5 +15,7 @@
 	program = gpg2
 	program = /usr/bin/gpg2
 [credential]
-	helper = /usr/local/bin/git-credential-manager-core
 	credentialStore = gpg
+	helper = /usr/local/bin/git-credential-manager-core
+[credential "https://dev.azure.com"]
+	useHttpPath = true

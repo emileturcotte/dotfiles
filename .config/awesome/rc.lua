@@ -73,7 +73,7 @@ run_once({
 	"nm-applet",
 	"xautolock -time 5 -locker slock -nowlocker slock -detectsleep",
 	"caffeine",
-	"bluetoothctl scan on"
+	"bluetoothctl scan on",
 
 }) -- comma-separated entries
 
