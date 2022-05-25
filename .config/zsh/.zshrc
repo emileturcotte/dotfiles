@@ -9,6 +9,7 @@ alias g='git'
 alias blue='bluetoothctl'
 alias vpn='protonvpn-cli'
 alias lf='lfub'
+alias rm='rm -i'
 
 ### Doom Emacs ###
 export DOOMDIR="$HOME/.config/doom"
@@ -19,7 +20,7 @@ alias doomupgrade="~/.emacs.d/bin/doom upgrade"
 alias doompurge="~/.emacs.d/bin/doom purge"
 
 ### GPG & SSH ###
-export GNUPGHOME="$HOME/.config/.gnupg"
+export GNUPGHOME="$HOME/.config/gnupg"
 export GPG_TTY=$(tty)
 export SSH_AUTH_SOCK=`gpgconf --list-dirs agent-ssh-socket`
 gpgconf --launch gpg-agent
@@ -44,6 +45,7 @@ autoload -U +X bashcompinit && bashcompinit
 
 source <(kubectl completion zsh)
 source ~/.config/zsh/az.completion
+source ~/.config/zsh/_docker
 
 ### ZSH Autosuggestion ###
 if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
