@@ -27,7 +27,8 @@ gpgconf --launch gpg-agent
 
 ### dotNET ###
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-export PATH="$PATH:~/.dotnet/tools"
+export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+export PATH="$PATH:$HOME/.dotnet/tools"
 _dotnet_zsh_complete()
 {
   local completions=("$(dotnet complete "$words")")
@@ -37,6 +38,11 @@ _dotnet_zsh_complete()
 
 compctl -K _dotnet_zsh_complete dotnet
 
+### Go ###
+export GOPATH="$HOME/.config/golang"
+export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
+
+### Shell Completion ###
 zstyle ':completion:*:*:git:*' script ~/.config/zsh/git-completion.bash
 fpath=(~/.config/zsh $fpath)
 

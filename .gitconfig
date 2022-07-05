@@ -16,6 +16,15 @@
 	program = /usr/bin/gpg2
 [credential]
 	credentialStore = gpg
+	helper = 
 	helper = /usr/local/bin/git-credential-manager-core
 [credential "https://dev.azure.com"]
 	useHttpPath = true
+[alias]
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+	pl = pull
+	ps = push
+	m  = merge
