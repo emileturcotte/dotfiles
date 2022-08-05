@@ -74,7 +74,6 @@ run_once({
 	"xautolock -time 5 -locker slock -nowlocker slock -detectsleep",
 	"caffeine",
 	"bluetoothctl scan on",
-	"syncthing -no-browser -no-restart"
 
 }) -- comma-separated entries
 
@@ -285,7 +284,7 @@ globalkeys = mytable.join(
               {description = "-10%", group = "hotkeys"}),
     awful.key({ modkey, }, "s", 
     	      function ()
-	    	  awful.spawn.with_shell("flameshot gui -p ~/Pictures/screenshots")
+	    	  awful.spawn.with_shell("flameshot gui -c")
     	      end,
     	      {description = "take screenshot", group = "hotkeys"}),
 
