@@ -20,14 +20,14 @@ bluez_monitor.properties = {
   --                          hsp_ag (HSP Audio Gateway),
   --                          hfp_hf (HFP Hands-Free),
   --                          hfp_ag (HFP Audio Gateway)
-  --["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]",
+  ["bluez5.headset-roles"] = "[ hsp_hs ]",
 
   -- Enabled A2DP codecs (default: all).
   --["bluez5.codecs"] = "[ sbc sbc_xq aac ldac aptx aptx_hd aptx_ll aptx_ll_duplex faststream faststream_duplex ]",
 
   -- HFP/HSP backend (default: native).
   -- Available values: any, none, hsphfpd, ofono, native
-  --["bluez5.hfphsp-backend"] = "native",
+  ["bluez5.hfphsp-backend"] = "none",
 
   -- Properties for the A2DP codec configuration
   --["bluez5.default.rate"] = 48000,
@@ -64,10 +64,10 @@ bluez_monitor.rules = {
       -- profiles have connected. Disabled by default if the property
       -- is not specified.
       --["bluez5.auto-connect"] = "[ hfp_hf hsp_hs a2dp_sink hfp_ag hsp_ag a2dp_source ]",
-      ["bluez5.auto-connect"]  = "[ hfp_hf hsp_hs a2dp_sink ]",
+      ["bluez5.auto-connect"]  = "[ a2dp_sink ]",
 
       -- Hardware volume control (default: [ hfp_ag hsp_ag a2dp_source ])
-      --["bluez5.hw-volume"] = "[ hfp_hf hsp_hs a2dp_sink hfp_ag hsp_ag a2dp_source ]",
+      ["bluez5.hw-volume"] = "[ a2dp_source ]",
 
       -- LDAC encoding quality
       -- Available values: auto (Adaptive Bitrate, default)
@@ -82,7 +82,7 @@ bluez_monitor.rules = {
 
       -- Profile connected first
       -- Available values: a2dp-sink (default), headset-head-unit
-      --["device.profile"] = "a2dp-sink",
+      ["device.profile"] = "a2dp-sink",
     },
   },
   {
