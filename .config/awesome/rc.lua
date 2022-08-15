@@ -74,6 +74,7 @@ run_once({
 	"xautolock -time 5 -locker slock -nowlocker slock -detectsleep",
 	"caffeine",
 	"bluetoothctl scan on",
+	"dunst"
 
 }) -- comma-separated entries
 
