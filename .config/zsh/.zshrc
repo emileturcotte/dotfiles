@@ -11,6 +11,17 @@ alias vpn='protonvpn-cli'
 alias lf='lfub'
 alias rm='rm -i'
 
+### ZSH ###
+export HISTFILE=~/.config/zsh/.zsh_history
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt INC_APPEND_HISTORY_TIME
+setopt EXTENDED_HISTORY
+
 ### Doom Emacs ###
 export DOOMDIR="$HOME/.config/doom"
 
@@ -66,6 +77,12 @@ fi
 ### ZSH VI Mode ###
 if [ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]; then
     source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+fi
+
+### FZF ###
+if [ -f /usr/share/fzf/key-bindings.zsh ]; then
+    source /usr/share/fzf/key-bindings.zsh
+    source /usr/share/fzf/completion.zsh
 fi
 
 ### Starship ###
