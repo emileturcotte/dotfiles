@@ -16,10 +16,7 @@
 	program = /usr/bin/gpg2
 [credential]
 	credentialStore = gpg
-	helper = 
-	helper = /usr/local/bin/git-credential-manager-core
-[credential "https://dev.azure.com"]
-	useHttpPath = true
+	helper = /home/emile/.dotnet/tools/git-credential-manager
 [alias]
 	st = status
 	ci = commit
@@ -28,3 +25,8 @@
 	pl = pull
 	ps = push
 	m  = merge
+[push]
+	default = current
+	autoSetupRemote = true
+[credential "https://dev.azure.com"]
+	useHttpPath = true

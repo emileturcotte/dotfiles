@@ -80,9 +80,8 @@ if [ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]; then
 fi
 
 ### FZF ###
-if [ -f /usr/share/fzf/key-bindings.zsh ]; then
-    source /usr/share/fzf/key-bindings.zsh
-    source /usr/share/fzf/completion.zsh
+if [ -f /etc/profile.d/fzf.zsh ]; then
+    source /etc/profile.d/fzf.zsh
 fi
 
 ### Starship ###
