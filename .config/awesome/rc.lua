@@ -71,9 +71,10 @@ run_once({
 	"emacs --daemon",
 	"flameshot",
 	"nm-applet",
-	"xautolock -time 5 -locker slock -nowlocker slock -detectsleep",
+	"xautolock -time 5 -locker slock -nowlocker betterlockscreen -detectsleep",
 	"caffeine",
-	"bluetoothctl scan on",
+	"bluetoothctl scan on",	
+	"betterlockscreen -u ~/Pictures/wallpapers/ign_unsplash11.png --fx blur --blur 0.0",
 
 }) -- comma-separated entries
 
@@ -94,10 +95,10 @@ local cycle_prev   = true  -- cycle with only the previously focused client or a
 local editor       = os.getenv("EDITOR") or "vim"
 local visual       = os.getenv("VISUAL") or "emacs"
 local browser      = "brave"
-local scrlocker    = "slock"
+local scrlocker    = "betterlockscreen -l blur --off 60 --span"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "web", "term", "code", "media", "files", "vm" }
+awful.util.tagnames = { "web", "code", "term", "media", "files", "vm" }
 awful.layout.layouts = {
     awful.layout.suit.tile,
 }
