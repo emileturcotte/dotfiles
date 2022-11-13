@@ -71,11 +71,9 @@ run_once({
 	"emacs --daemon",
 	"flameshot",
 	"nm-applet",
-	"xautolock -time 5 -locker slock -nowlocker betterlockscreen -detectsleep",
+	"xautolock -time 5 -locker betterlockscreen -nowlocker betterlockscreen -detectsleep",
 	"caffeine",
-	"bluetoothctl scan on",	
-	"betterlockscreen -u ~/Pictures/wallpapers/ign_unsplash11.png --fx blur --blur 0.0",
-
+	"bluetoothctl scan on",
 }) -- comma-separated entries
 
 -- }}}
