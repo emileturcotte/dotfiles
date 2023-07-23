@@ -20,6 +20,7 @@ window:
   class:
     instance: Alacritty
     general: Alacritty
+  opacity: 0.9
 
 scrolling:
   history: 10000
@@ -30,25 +31,18 @@ tabspaces: 2
 # Font configuration
 font:
   normal:
-    family: JetBrainsMono Nerd Font
-    style: Regular
+    family: JetBrains Mono Nerd Font
+    style: Medium
   bold:
-    family: JetBrainsMono Nerd Font
+    family: JetBrains Mono Nerd Font
     style: Bold
   italic:
-    family: JetBrainsMono Nerd Font
-    style: Italic
+    family: JetBrains Mono Nerd Font
+    style: MediumItalic
   bold_italic:
-    family: JetBrainsMono Nerd Font
-    style: Bold Italic
+    family: JetBrains Mono Nerd Font
+    style: BoldItalic
   size: 11.0
-  offset:
-    x: 0
-    y: 1
-  glyph_offset:
-    x: 0
-    y: 0
-  use_thin_stokes: true
 
 draw_bold_text_with_bright_colors: true
 
@@ -110,29 +104,17 @@ colors:
     blue: "#68809a"
     magenta: "#8c738c"
     cyan: "#6d96a5"
-    white: "#aeb3bb"
-
-# Background opacity
-#
-# Window opacity as a floating point number from `0.0` to `1.0`.
-# The value `0.0` is completely transparent and `1.0` is opaque.
-window.opacity: 0.9
-
-#selection:
-# This string contains all characters that are used as separators for
-# "semantic words" in Alacritty.
-#semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
-
-# When set to `true`, selected text will be copied to the primary clipboard.
-#save_to_clipboard: false
+    white: "#c2c7ce"
+      #white: "#aeb3bb"
 
 cursor:
   style:
-    shape: Beam
+    shape: Block
     blinking: On
   blink_interval: 750
   unfocused_hollow: true
   thickness: 0.15
+  vi_mode_style: None
 
 live_config_reload: true
 

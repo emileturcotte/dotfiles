@@ -67,11 +67,11 @@ local function run_once(cmd_arr)
 end
 
 run_once({ 
-	"picom --experimental-backends --config ~/.config/picom/picom.conf",
+	"picom --config ~/.config/picom/picom.conf",
 	"emacs --daemon",
 	"flameshot",
 	"nm-applet",
-	"xautolock -time 5 -locker betterlockscreen -nowlocker betterlockscreen -detectsleep",
+	"xautolock -time 5 -locker 'betterlockscreen -l blur --off 60 --span' -detectsleep",
 	"caffeine",
 	"bluetoothctl scan on",
 }) -- comma-separated entries
@@ -95,11 +95,46 @@ local visual       = os.getenv("VISUAL") or "emacs"
 local browser      = "brave"
 local scrlocker    = "betterlockscreen -l blur --off 60 --span"
 
-awful.util.terminal = terminal
-awful.util.tagnames = { "web", "code", "term", "media", "files", "vm" }
-awful.layout.layouts = {
-    awful.layout.suit.tile,
+local iconsdir = string.format("%s/.config/awesome/icons/", os.getenv("HOME"))
+local tags = {
+    names = {
+    	"web",
+	"code",
+	"term",
+	"media",
+	"files",
+	"vm"
+    },
+    layouts = {
+	awful.layout.suit.tile,
+    },
+    icons = {
+    	iconsdir .. "icon-brave.png",
+	iconsdir .. "icon-code.png",
+	iconsdir .. "icon-term.png",
+	iconsdir .. "icon-play.png",
+	iconsdir .. "icon-document.png",
+	iconsdir .. "icon-workstation.png"
+    }
 }
+-- }}}
+
+-- {{{ Tags
+
+for s = 1, screen.count() do
+  tags[s] = awful.tag(tags.names, s, tags.layouts)
+
+  for i, t in ipairs(tags[s]) do
+      awful.tag.seticon(tags.icons[i], t)
+      awful.tag.setproperty(t, "icon_only", 1)
+  end
+end
+
+-- }}}
+
+awful.util.terminal = terminal
+awful.util.tagnames = tags.names
+awful.layout.layouts = tags.layouts
 
 awful.util.taglist_buttons = mytable.join(
     awful.button({ }, 1, function(t) t:view_only() end),
@@ -129,9 +164,6 @@ awful.util.tasklist_buttons = mytable.join(
      awful.button({ }, 5, function() awful.client.focus.byidx(-1) end)
 )
 
-local themedir = string.format("%s/.config/awesome/themes/%s", os.getenv("HOME"), chosen_theme)
-beautiful.init(themedir .. "/theme.lua")
-
 -- Set random wallpaper (https://gist.github.com/anonymous/9072154f03247ab6e28c)
 -- {{{ Function definitions
 
@@ -153,6 +185,8 @@ end
 
 -- }}}
 
+local themedir = string.format("%s/.config/awesome/themes/%s", os.getenv("HOME"), chosen_theme)
+beautiful.init(themedir .. "/theme.lua")
 wp_path = themedir .. "/wallpapers/"
 wp_filter = function(s) return string.match(s,"%.png$") or string.match(s,"%.jpg$") end
 wp_files = scandir(wp_path, wp_filter)
@@ -182,30 +216,6 @@ end)
 
 -- }}}
 
--- {{{ Menu
-
--- Create a launcher widget and a main menu
-local myawesomemenu = {
-   { "Hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "Manual", string.format("%s -e man awesome", terminal) },
-   { "Edit config", string.format("%s -e %s %s", terminal, editor, awesome.conffile) },
-   { "Restart", awesome.restart },
-   { "Quit", function() awesome.quit() end },
-}
-
-awful.util.mymainmenu = freedesktop.menu.build {
-    before = {
-        { "Awesome", myawesomemenu, beautiful.awesome_icon },
-        -- other triads can be put here
-    },
-    after = {
-        { "Open terminal", terminal },
-        -- other triads can be put here
-    }
-}
-
--- }}}
-
 -- {{{ Screen
 
 -- Set client border
@@ -229,7 +239,6 @@ end)
 -- {{{ Mouse bindings
 
 root.buttons(mytable.join(
-    awful.button({ }, 3, function () awful.util.mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
@@ -243,8 +252,6 @@ globalkeys = mytable.join(
     --    AWESOME
     awful.key({ modkey }, "F1", hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    awful.key({ modkey,           }, "w", function () awful.util.mymainmenu:show() end,
-              {description = "show main menu", group = "awesome"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,

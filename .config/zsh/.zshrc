@@ -33,7 +33,7 @@ alias doompurge="~/.emacs.d/bin/doom purge"
 ### GPG & SSH ###
 export GNUPGHOME="$HOME/.config/gnupg"
 export GPG_TTY=$(tty)
-export SSH_AUTH_SOCK=`gpgconf --list-dirs agent-ssh-socket`
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 
 ### dotNET ###
@@ -52,6 +52,7 @@ compctl -K _dotnet_zsh_complete dotnet
 ### Go ###
 export GOPATH="$HOME/.config/golang"
 export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
+export GOBIN="$GOPATH/bin"
 
 ### Shell Completion ###
 zstyle ':completion:*:*:git:*' script ~/.config/zsh/git-completion.bash
