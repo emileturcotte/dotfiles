@@ -2,9 +2,9 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-export EDITOR="emacsclient -t -a ''"
-export VISUAL="emacsclient -c -a 'emacs'"
-export PATH=$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin:$HOME/.emacs.d/bin:$PATH
+export EDITOR="emacsclient -t -s doom -a ''"
+export VISUAL="emacsclient -c -s doom -a emacs"
+export PATH=$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin::$HOME/.config/doom-emacs/bin:$PATH
 export LC_ALL="en_US.UTF-8"
 export QT_QPA_PLATFORMTHEME=qt5ct
 

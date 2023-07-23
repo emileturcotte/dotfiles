@@ -68,7 +68,7 @@ end
 
 run_once({ 
 	"picom --config ~/.config/picom/picom.conf",
-	"emacs --daemon",
+	"emacs --with-profile doom --daemon",
 	"flameshot",
 	"nm-applet",
 	"xautolock -time 5 -locker 'betterlockscreen -l blur --off 60 --span' -detectsleep",
