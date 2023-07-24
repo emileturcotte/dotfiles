@@ -1,0 +1,89 @@
+//----------------------
+// Theme Settings 
+//----------------------
+
+//----------------------
+// Colors
+//----------------------
+
+* {
+    nord0: #2E3440;
+    nord1: #3B4252;	
+    nord3: #4C566A;
+    nord4: #D8DEE9;
+    nord10: #5E81AC;
+
+    bg: var(nord0);
+    bg-alt: var(nord3);
+    bg-selected: var(nord1);
+ 
+    fg: var(nord4);
+    fg-alt: var(nord4);
+    border-color: var(nord10);
+
+    background-color: var(bg);
+    text-color: var(fg);
+
+    border: 0;
+    margin: 0;
+    padding: 0;
+    spacing: 2;
+}
+
+//----------------------
+// Style
+//----------------------
+
+mainbox {
+    border:  2;
+    padding: 10;
+}
+
+message {
+    border:       2px 2px 2px;
+    padding:      10;
+}
+
+listview {
+    fixed-height: 0;
+    padding:	  5 0 0;
+    spacing:      5px;
+}
+
+element {
+    padding: 5px;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    vertical-align: 0.5;
+}
+
+element-icon {
+    size: 14;
+    padding: 0 10 0 0;
+    background-color: transparent;
+}
+
+element.selected.normal, element.selected.urgent, element.selected.active, button.selected {
+    background-color: var(bg-alt);
+}
+
+inputbar {
+    spacing:      5;
+    padding:      5px;
+    border:	  0 0 1;
+}
+
+case-indicator {
+    spacing: 0;
+}
+
+entry {
+    spacing: 0;
+}
+
+prompt {
+    spacing: 0;
+}
