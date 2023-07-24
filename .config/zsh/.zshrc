@@ -1,32 +1,24 @@
 # User configuration
 
-test -s ~/.alias && . ~/.alias || true
+test -s $ZDOTDIR/alias && . $ZDOTDIR/alias || true
 
-alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
-alias k='kubectl'
-alias d='docker'
-alias g='git'
-alias blue='bluetoothctl'
-alias vpn='protonvpn-cli'
-alias lf='lfub'
-alias rm='rm -i'
+unsetopt menu_complete
+unsetopt flowcontrol
 
-### ZSH ###
-export HISTFILE=~/.config/zsh/.zsh_history
-export HISTSIZE=1000000
-export SAVEHIST=1000000
-
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_SAVE_NO_DUPS
-setopt HIST_REDUCE_BLANKS
-setopt INC_APPEND_HISTORY_TIME
-setopt EXTENDED_HISTORY
-
-### Doom Emacs ###
-export DOOMDIR="$HOME/.config/doom-config"
+setopt prompt_subst
+setopt always_to_end
+setopt append_history
+setopt auto_menu
+setopt complete_in_word
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt inc_append_history
+setopt share_history
 
 ### GPG & SSH ###
-export GNUPGHOME="$HOME/.config/gnupg"
 export GPG_TTY=$(tty)
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
@@ -34,7 +26,6 @@ gpgconf --launch gpg-agent
 ### dotNET ###
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-export PATH="$PATH:$HOME/.dotnet/tools"
 _dotnet_zsh_complete()
 {
   local completions=("$(dotnet complete "$words")")
@@ -43,11 +34,6 @@ _dotnet_zsh_complete()
 }
 
 compctl -K _dotnet_zsh_complete dotnet
-
-### Go ###
-export GOPATH="$HOME/.config/golang"
-export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
-export GOBIN="$GOPATH/bin"
 
 ### Shell Completion ###
 zstyle ':completion:*:*:git:*' script ~/.config/zsh/git-completion.bash
@@ -81,5 +67,4 @@ if [ -f /etc/profile.d/fzf.zsh ]; then
 fi
 
 ### Starship ###
-export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
 eval "$(starship init zsh)"

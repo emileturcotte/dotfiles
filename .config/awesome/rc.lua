@@ -258,7 +258,7 @@ globalkeys = mytable.join(
               {description = "quit awesome", group = "awesome"}),
 
     --	  LAUNCHER
-    awful.key({ modkey }, "space", function () os.execute("rofi -show drun") end,
+    awful.key({ modkey }, "space", function () os.execute("rofi -show run") end,
               {description = "show dmenu", group = "launcher"}), 
     awful.key({ modkey }, "Return", function () awful.spawn(terminal) end,
               {description = "launch terminal", group = "launcher"}),

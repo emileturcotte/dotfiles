@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# settings for common commands
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias rm="rm -vI"
+alias bc="bc -ql"
+alias mkdir="mkdir -pv"
+alias ls="exa --icons --group-directories-first"
+alias locate="plocate"
+alias cat='bat'
+alias grep='grep --color=always'
+
+alias aura='sudo aura'
+alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+alias k='kubectl'
+alias d='docker'
+alias g='git'
+alias blue='bluetoothctl'
+alias lf='lfub'
