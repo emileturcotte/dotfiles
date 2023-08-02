@@ -42,4 +42,6 @@ xcape -e 'Control_L=Escape' -t 200 &
 
 # Launch Window Manager
 _logdir='.cache/awesome'
+
+/usr/bin/prime-offload
 exec /usr/bin/awesome >> $_logdir/stdout 2>> $_logdir/stderr
