@@ -1,15 +1,6 @@
 # User configuration
 
-test -s ~/.alias && . ~/.alias || true
-
-alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
-alias k='kubectl'
-alias d='docker'
-alias g='git'
-alias blue='bluetoothctl'
-alias vpn='protonvpn-cli'
-alias lf='lfub'
-alias rm='rm -i'
+test -s $ZDOTDIR/alias && . $ZDOTDIR/alias || true
 
 unsetopt menu_complete
 unsetopt flowcontrol
