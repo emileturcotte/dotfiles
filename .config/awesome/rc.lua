@@ -67,8 +67,9 @@ local function run_once(cmd_arr)
 end
 
 run_once({ 
+	"laptoplayout",
 	"picom --config ~/.config/picom/picom.conf",
-	"emacs --with-profile doom --daemon",
+	"emacs --with-profile default --daemon",
 	"flameshot",
 	"nm-applet",
 	"xautolock -time 5 -locker 'betterlockscreen -l blur --off 60 --span' -detectsleep",

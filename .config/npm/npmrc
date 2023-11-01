@@ -1,0 +1,8 @@
+; begin auth token
+//pkgs.dev.azure.com/GenetecCentral/UnificationStratocast/_packaging/UnificationStratocast/npm/registry/:username=GenetecCentral
+//pkgs.dev.azure.com/GenetecCentral/UnificationStratocast/_packaging/UnificationStratocast/npm/registry/:_password=dmI0bWd6eTZ0M3Z4NjJsbzJ4azJ0Zmxhbm5jZ2JpZDd2bnRtYXEyZmdwbXhidzRoNHVlYQ==
+//pkgs.dev.azure.com/GenetecCentral/UnificationStratocast/_packaging/UnificationStratocast/npm/registry/:email=npm requires email to be set but doesn't use the value
+//pkgs.dev.azure.com/GenetecCentral/UnificationStratocast/_packaging/UnificationStratocast/npm/:username=GenetecCentral
+//pkgs.dev.azure.com/GenetecCentral/UnificationStratocast/_packaging/UnificationStratocast/npm/:_password=dmI0bWd6eTZ0M3Z4NjJsbzJ4azJ0Zmxhbm5jZ2JpZDd2bnRtYXEyZmdwbXhidzRoNHVlYQ==
+//pkgs.dev.azure.com/GenetecCentral/UnificationStratocast/_packaging/UnificationStratocast/npm/:email=npm requires email to be set but doesn't use the value
+; end auth token

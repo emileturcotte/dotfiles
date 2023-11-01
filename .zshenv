@@ -1,8 +1,9 @@
 # Default apps
-export EDITOR="emacsclient -t -a ''"
-export VISUAL="emacsclient -c -a 'emacs'"
+export EDITOR="emacsclient -t -s default -a ''"
+export VISUAL="emacsclient -c -s default -a emacs"
 
 export QT_QPA_PLATFORMTHEME=qt5ct
+export KEY_ID="0x58605F08885C6901"
 
 # Cleaning up home folder
 export ZDOTDIR="$HOME/.config/zsh"
@@ -31,15 +32,16 @@ export NOTMUCH_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/notmuch-config"
 export LESSHISTFILE="-"
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
 export MBSYNCRC="${XDG_CONFIG_HOME:-$HOME/.config}/mbsync/config"
-export PASSWORD_STORE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/password-store"
+#export PASSWORD_STORE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/password-store"
 export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export PARALLEL_HOME="$XDG_CONFIG_HOME/parallel"
 export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/config.toml"
 
-export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin:$XDG_BIN_HOME:/usr/local/bin:/usr/bin:/bin:$HOME/.emacs.d/bin:$HOME/.dotnet/tools"
+export PATH="$GOPATH/bin:/usr/local/go/bin:$XDG_BIN_HOME:/usr/local/bin:/usr/bin:/bin:$HOME/.config/emacs/bin:$HOME/.dotnet/tools:$PATH"
 
+export LC_ALL="en_US.UTF-8"
 # This is the list for lf icons:
 export LF_ICONS="di=📁:\
 fi=📃:\
@@ -119,4 +121,4 @@ ex=🎯:\
 *.java=♨:\
 "
 
-export LC_ALL="en_US.UTF-8"
+

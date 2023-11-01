@@ -12,7 +12,6 @@
 	untracked = magenta
 	deleted = red
 [gpg]
-	program = gpg2
 	program = /usr/bin/gpg2
 [credential]
 	credentialStore = gpg

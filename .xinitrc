@@ -44,4 +44,5 @@ xcape -e 'Control_L=Escape' -t 200 &
 _logdir='.cache/awesome'
 
 /usr/bin/prime-offload
+laptoplayout
 exec /usr/bin/awesome >> $_logdir/stdout 2>> $_logdir/stderr
