@@ -45,6 +45,7 @@ autoload -U +X bashcompinit && bashcompinit
 source <(kubectl completion zsh)
 source ~/.config/zsh/az.completion
 source ~/.config/zsh/_docker
+source ~/.config/zsh/zsh-better-npm-completion.plugin.zsh
 
 ### ZSH Autosuggestion ###
 if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then

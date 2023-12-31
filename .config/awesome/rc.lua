@@ -69,12 +69,11 @@ end
 run_once({ 
 	"laptoplayout",
 	"picom --config ~/.config/picom/picom.conf",
-	"emacs --with-profile default --daemon",
+	"emacs --daemon",
 	"flameshot",
 	"nm-applet",
 	"xautolock -time 5 -locker 'betterlockscreen -l blur --off 60 --span' -detectsleep",
 	"caffeine",
-	"bluetoothctl scan on",
 }) -- comma-separated entries
 
 -- }}}
@@ -255,7 +254,7 @@ globalkeys = mytable.join(
               {description="show help", group="awesome"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit,
+    awful.key({ modkey, "Shift" }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 
     --	  LAUNCHER
@@ -264,6 +263,8 @@ globalkeys = mytable.join(
     awful.key({ modkey }, "Return", function () awful.spawn(terminal) end,
               {description = "launch terminal", group = "launcher"}),
     awful.key({ modkey }, "b", function () awful.spawn(browser) end,
+              {description = "launch browser", group = "launcher"}),
+    awful.key({ modkey, "Shift" }, "b", function () awful.spawn(browser .. " --incognito") end,
               {description = "launch browser", group = "launcher"}),
     awful.key({ modkey }, "e", function () awful.spawn(visual) end,
     	      {description = "launch editor", group = "launcher"}),

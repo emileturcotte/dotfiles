@@ -1,21 +1,22 @@
 # Default apps
-export EDITOR="emacsclient -t -s default -a ''"
-export VISUAL="emacsclient -c -s default -a emacs"
+export EDITOR="emacsclient -t -a ''"
+export VISUAL="emacsclient -c -a emacs"
 
 export QT_QPA_PLATFORMTHEME=qt5ct
 export KEY_ID="0x58605F08885C6901"
 
 # Cleaning up home folder
-export ZDOTDIR="$HOME/.config/zsh"
-export HISTFILE="$ZDOTDIR/.zsh_history"
-export HISTSIZE=1000000
-export SAVEHIST=1000000
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_BIN_HOME="$HOME/.local/bin"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export HISTFILE="$ZDOTDIR/.zsh_history"
+export HISTSIZE=1000000
+export SAVEHIST=1000000
 
+export DOOMDIR="$XDG_CONFIG_HOME/doom"
 export ELECTRUMDIR="$XDG_DATA_HOME/electrum"
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
@@ -35,7 +36,6 @@ export MBSYNCRC="${XDG_CONFIG_HOME:-$HOME/.config}/mbsync/config"
 #export PASSWORD_STORE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/password-store"
 export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export PARALLEL_HOME="$XDG_CONFIG_HOME/parallel"
 export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/config.toml"
 
