@@ -483,7 +483,6 @@ awful.rules.rules = {
     -- Floating clients.
     { rule_any = {
         instance = {
-          "DTA",  -- Firefox addon DownThemAll.
           "copyq",  -- Includes session name in class.
           "pinentry",
         },
@@ -497,7 +496,8 @@ awful.rules.rules = {
           "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
           "Wpa_gui",
           "veromix",
-          "xtightvncviewer"
+          "xtightvncviewer",
+	  "gcr-prompter",
   	},
         -- Note that the name property shown in xprop might be set slightly after creation of the client
         -- and the name shown there might not match defined rules here.
@@ -509,11 +509,19 @@ awful.rules.rules = {
           "ConfigManager",  -- Thunderbird's about:config.
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
-      }, properties = { floating = true }},
+      }, 
+      properties = { floating = true }
+    },
 
-    -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = false }
+    -- Remove titlebars to normal clients and dialogs
+    { rule_any = {type = { "normal", "dialog" }}, 
+    	properties = { titlebars_enabled = false }
+    },
+
+    { rule = { floating = true },
+    	properties = {
+	    placement = awful.placement.centered + awful.placement.no_overlap + awful.placement.no_offscreen
+	},
     },
 }
 
@@ -522,16 +530,16 @@ awful.rules.rules = {
 -- {{{ Signals
 
 -- Signal function to execute when a new client appears.
-client.connect_signal("manage", function (c)
+client.connect_signal("manage", function (client, context)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
-    if not awesome.startup then awful.client.setslave(c) end
+    if not awesome.startup then awful.client.setslave(client) end
 
     if awesome.startup
-      and not c.size_hints.user_position
-      and not c.size_hints.program_position then
+      and not client.size_hints.user_position
+      and not client.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
-        awful.placement.no_offscreen(c)
+        awful.placement.no_offscreen(client)
     end
 end)
  
