@@ -1,9 +1,9 @@
 # Default apps
 export EDITOR="emacsclient -t -a ''"
 export VISUAL="emacsclient -c -a emacs"
-
 export QT_QPA_PLATFORMTHEME=qt5ct
 export KEY_ID="0x58605F08885C6901"
+export KEYTIMEOUT=5
 
 # Cleaning up home folder
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -39,7 +39,9 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export PARALLEL_HOME="$XDG_CONFIG_HOME/parallel"
 export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/config.toml"
 
-export PATH="$GOPATH/bin:/usr/local/go/bin:$XDG_BIN_HOME:/usr/local/bin:/usr/bin:/bin:$HOME/.config/emacs/bin:$HOME/.dotnet/tools:$PATH"
+typeset -U path PATH
+path=($GOPATH/bin /usr/local/go/bin $XDG_BIN_HOME /usr/local/bin /usr/bin /bin $HOME/.config/emacs/bin $HOME/.dotnet/tools $path)
+export PATH
 
 export LC_ALL="en_US.UTF-8"
 # This is the list for lf icons:

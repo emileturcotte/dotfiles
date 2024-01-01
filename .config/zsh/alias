@@ -5,8 +5,10 @@ alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="rm -vI"
 alias bc="bc -ql"
+alias ln="ln -v"
 alias mkdir="mkdir -pv"
-alias ls="exa --icons --group-directories-first"
+alias rmdir="rmdir -v"
+alias ls="exa --icons --group-directories-first -la"
 alias locate="plocate"
 alias cat='bat'
 alias grep='grep --color=always'
@@ -19,3 +21,4 @@ alias g='git'
 alias blue='bluetoothctl'
 alias lf='lfub'
 alias npm='sudo npm'
+alias cd='z'

@@ -2,6 +2,9 @@
 
 test -s $ZDOTDIR/alias && . $ZDOTDIR/alias || true
 
+#-----------------------------
+# Options
+#-----------------------------
 unsetopt menu_complete
 unsetopt flowcontrol
 
@@ -18,12 +21,21 @@ setopt hist_verify
 setopt inc_append_history
 setopt share_history
 
-### GPG & SSH ###
+#-----------------------------
+# Aliases
+#-----------------------------
+source $ZDOTDIR/config.d/keybindings.zsh
+
+#-----------------------------
+# GPG & SSH
+#-----------------------------
 export GPG_TTY=$(tty)
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 
-### dotNET ###
+#-----------------------------
+# DotNET
+#-----------------------------
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 _dotnet_zsh_complete()
@@ -33,39 +45,55 @@ _dotnet_zsh_complete()
   reply=( "${(ps:\n:)completions}" )
 }
 
-compctl -K _dotnet_zsh_complete dotnet
-
-### Shell Completion ###
-zstyle ':completion:*:*:git:*' script ~/.config/zsh/git-completion.bash
+#-----------------------------
+# Shell Completion
+#-----------------------------
+zstyle ':completion:*' menu select
+zstyle ':completion:*' rehash true
+zstyle ':git:*' script ~/.config/zsh/git-completion.bash
 fpath=(~/.config/zsh $fpath)
 
 autoload -Uz compinit && compinit
+autoload -Uz promptinit && promptinit
 autoload -U +X bashcompinit && bashcompinit
+compctl -K _dotnet_zsh_complete dotnet
 
 source <(kubectl completion zsh)
-source ~/.config/zsh/az.completion
-source ~/.config/zsh/_docker
-source ~/.config/zsh/zsh-better-npm-completion.plugin.zsh
+source $ZDOTDIR/az.completion
+source $ZDOTDIR/_docker
+source $ZDOTDIR/zsh-better-npm-completion.plugin.zsh
 
-### ZSH Autosuggestion ###
+#-----------------------------
+# Autosuggestion
+#-----------------------------
 if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
-### ZSH Syntax Highlighting ###
-if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-
-### ZSH VI Mode ###
+#-----------------------------
+# Vi Mode
+#-----------------------------
 if [ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]; then
     source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 fi
 
-### FZF ###
-if [ -f /etc/profile.d/fzf.zsh ]; then
-    source /etc/profile.d/fzf.zsh
+#-----------------------------
+# FZF
+#-----------------------------
+#if [ -f /etc/profile.d/fzf.zsh ]; then
+#    source /etc/profile.d/fzf.zsh
+#fi
+
+#-----------------------------
+# Syntax Highlighting
+#-----------------------------
+if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
 
 ### Starship ###
 eval "$(starship init zsh)"
+
+### Zoxide ###
+eval "$(zoxide init zsh)"
