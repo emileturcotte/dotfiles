@@ -1,11 +1,184 @@
-# Inserts a blank line between shell prompts
-add_newline = false
+"$schema" = 'https://starship.rs/config-schema.json'
 
-# A minimal left prompt
-format = """$character"""
+format = """
+[](color_user)\
+$os\
+$username\
+[](fg:color_user bg:color_directory)\
+$directory\
+[](fg:color_directory bg:color_git)\
+$git_branch\
+$git_status\
+[](fg:color_git bg:color_code)\
+$c\
+$rust\
+$golang\
+$nodejs\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+[](fg:color_code bg:color_docker)\
+$docker_context\
+[](fg:color_docker bg:color_battery)\
+$battery\
+[](fg:color_battery bg:color_time)\
+$time\
+[ ](fg:color_time)\
+$line_break$character"""
 
-# move the rest of the prompt to the right
-right_format = """$all"""
+palette = 'nord'
+
+[palettes.nord]
+color_user = '#5e81ac'
+color_directory = '#b48ead'
+color_git = '#a3be8c'
+color_code = '#ebcb8b'
+color_docker = '#d08770'
+color_battery = '#3b4252'
+color_time = '#2e3440'
+color_text = '#e5e9f0'
+color_green = '#a3be8c'
+color_purple = '#b48ead'
+color_red = '#bf616a'
+color_yellow = '#ebcb8b'
+
+[os]
+disabled = false
+style = "bg:color_user fg:color_text"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+[username]
+show_always = true
+style_user = "bg:color_user fg:color_text"
+style_root = "bg:color_user fg:color_text"
+format = '[ $user ]($style)'
+
+[directory]
+style = "fg:color_text bg:color_directory"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+symbol = ""
+style = "bg:color_git"
+format = '[[ $symbol $branch ](fg:color_text bg:color_git)]($style)'
+
+[git_status]
+style = "bg:color_git"
+format = '[[($all_status$ahead_behind )](fg:color_text bg:color_git)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:color_code"
+format = '[[ $symbol( $version) ](fg:color_text bg:color_code)]($style)'
+
+[c]
+symbol = " "
+style = "bg:color_code"
+format = '[[ $symbol( $version) ](fg:color_text bg:color_code)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:color_code"
+format = '[[ $symbol( $version) ](fg:color_text bg:color_code)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:color_code"
+format = '[[ $symbol( $version) ](fg:color_text bg:color_code)]($style)'
+
+[php]
+symbol = ""
+style = "bg:color_code"
+format = '[[ $symbol( $version) ](fg:color_text bg:color_code)]($style)'
+
+[java]
+symbol = " "
+style = "bg:color_code"
+format = '[[ $symbol( $version) ](fg:color_text bg:color_code)]($style)'
+
+[kotlin]
+symbol = ""
+style = "bg:color_code"
+format = '[[ $symbol( $version) ](fg:color_text bg:color_code)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:color_code"
+format = '[[ $symbol( $version) ](fg:color_text bg:color_code)]($style)'
+
+[python]
+symbol = ""
+style = "bg:color_code"
+format = '[[ $symbol( $version) ](fg:color_text bg:color_code)]($style)'
+
+[docker_context]
+symbol = ""
+style = "bg:color_docker"
+format = '[[ $symbol( $context) ](fg:#83a598 bg:color_docker)]($style)'
+
+[line_break]
+disabled = false
 
 [character]
-success_symbol = "[➜](bold green)"
+disabled = false
+success_symbol = '[](bold fg:color_green)'
+error_symbol = '[](bold fg:color_red)'
+vimcmd_symbol = '[](bold fg:color_green)'
+vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
+vimcmd_replace_symbol = '[](bold fg:color_purple)'
+vimcmd_visual_symbol = '[](bold fg:color_yellow)'
+
+[battery]
+full_symbol = '🔋 '
+charging_symbol = '🔋 '
+discharging_symbol = '🔋 '
+format = '[[ $symbol$percentage ](bg:color_battery)]($style)'
+
+[[battery.display]]
+threshold = 20
+style = 'fg:color_red bg:color_battery'
+
+[[battery.display]]
+threshold = 50
+style = 'fg:color_yellow bg:color_battery'
+
+[[battery.display]]
+threshold = 100
+style = 'fb:color_text bg:color_battery'
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:color_time"
+format = '[[   $time ](fg:color_text bg:color_time)]($style)'
