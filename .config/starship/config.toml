@@ -160,9 +160,6 @@ vimcmd_replace_symbol = '[](bold fg:color_purple)'
 vimcmd_visual_symbol = '[](bold fg:color_yellow)'
 
 [battery]
-full_symbol = '🔋 '
-charging_symbol = '🔋 '
-discharging_symbol = '🔋 '
 format = '[[ $symbol$percentage ](bg:color_battery)]($style)'
 
 [[battery.display]]
