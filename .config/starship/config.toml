@@ -33,12 +33,16 @@ palette = 'nord'
 [palettes.nord]
 color_user = '#5e81ac'
 color_directory = '#b48ead'
+color_directory_alt = '#eceff4'
 color_git = '#a3be8c'
+color_git_alt = "#bf616a"
 color_code = '#ebcb8b'
+color_code_alt = ""
 color_docker = '#d08770'
 color_battery = '#3b4252'
 color_time = '#2e3440'
-color_text = '#e5e9f0'
+color_text = '#eceff4'
+color_text_dark = "#5e81ac"
 color_green = '#a3be8c'
 color_purple = '#b48ead'
 color_red = '#bf616a'
@@ -76,7 +80,7 @@ style_root = "bg:color_user fg:color_text"
 format = '[ $user ]($style)'
 
 [directory]
-style = "fg:color_text bg:color_directory"
+style = "fg:color_directory_alt bg:color_directory"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -91,11 +95,11 @@ truncation_symbol = "…/"
 [git_branch]
 symbol = ""
 style = "bg:color_git"
-format = '[[ $symbol $branch ](fg:color_text bg:color_git)]($style)'
+format = '[[ $symbol $branch ](fg:color_git_alt bg:color_git)]($style)'
 
 [git_status]
 style = "bg:color_git"
-format = '[[($all_status$ahead_behind )](fg:color_text bg:color_git)]($style)'
+format = '[[($all_status$ahead_behind )](fg:color_git_alt bg:color_git)]($style)'
 
 [nodejs]
 symbol = ""
@@ -105,7 +109,7 @@ format = '[[ $symbol( $version) ](fg:color_text bg:color_code)]($style)'
 [c]
 symbol = " "
 style = "bg:color_code"
-format = '[[ $symbol( $version) ](fg:color_text bg:color_code)]($style)'
+format = '[[ $symbol( $version) ](fg:color_text_dark bg:color_code)]($style)'
 
 [rust]
 symbol = ""
@@ -160,7 +164,7 @@ vimcmd_replace_symbol = '[](bold fg:color_purple)'
 vimcmd_visual_symbol = '[](bold fg:color_yellow)'
 
 [battery]
-format = '[[ $symbol$percentage ](bg:color_battery)]($style)'
+format = '[[ $symbol$percentage ](fg:color_text bg:color_battery)]($style)'
 
 [[battery.display]]
 threshold = 20

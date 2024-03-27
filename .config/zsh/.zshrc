@@ -78,11 +78,18 @@ if [ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]; then
 fi
 
 #-----------------------------
+# NVM Mode
+#-----------------------------
+if [ -f /usr/share/nvm/init-nvm.sh ]; then
+    source /usr/share/nvm/init-nvm.sh
+fi
+
+#-----------------------------
 # FZF
 #-----------------------------
-#if [ -f /etc/profile.d/fzf.zsh ]; then
-#    source /etc/profile.d/fzf.zsh
-#fi
+if [ -f /etc/profile.d/fzf.zsh ]; then
+    source /etc/profile.d/fzf.zsh
+fi
 
 #-----------------------------
 # Syntax Highlighting
