@@ -10,8 +10,9 @@ local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 local dpi   = require("beautiful.xresources").apply_dpi
-local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
+local logout_popup = require("awesome-wm-widgets.logout-popup-widget.logout-popup")
 local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
+local todo_widget = require("awesome-wm-widgets.todo-widget.todo")
 
 local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -150,9 +151,9 @@ local bat = lain.widget.bat({
 
 -- Volume
 -- https://github.com/streetturtle/awesome-wm-widgets/tree/master/volume-widget
-awful.key({}, "XF86AudioRaiseVolume", function() volume_widget.inc() end)
-awful.key({}, "XF86AudioLowerVolume", function() volume_widget.dec() end)
-awful.key({}, "XF86AudioMute", function() volume_widget.toggle() end)
+-- awful.key({}, "XF86AudioRaiseVolume", function() volume_widget.inc() end)
+-- awful.key({}, "XF86AudioLowerVolume", function() volume_widget.dec() end)
+-- awful.key({}, "XF86AudioMute", function() volume_widget.toggle() end)
 
 -- Net
 local neticon = wibox.widget.imagebox(theme.widget_net)
@@ -166,8 +167,9 @@ local net = lain.widget.net({
     end
 })
 
-local logout = logout_menu_widget {
-    onlock = function() awful.spawn.with_shell("slock") end
+local logout = logout_popup.widget {
+    onlock = function() awful.spawn.with_shell("betterlockscreen -l blur --off 60 --span") end,
+    phrases = {},
 }
 
 -- Separators
@@ -216,6 +218,7 @@ function theme.at_screen_connect(s)
 	},
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+	    todo_widget(),
             wibox.widget.systray(),
 	    audio_widget,
             arrl_fa,

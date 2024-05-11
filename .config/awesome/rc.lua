@@ -74,6 +74,7 @@ run_once({
 	"xautolock -time 5 -locker 'betterlockscreen -l blur --off 60 --span' -detectsleep",
 	"caffeine",
 	"emacs --daemon",
+	"blueman-applet",
 }) -- comma-separated entries
 
 -- }}}
