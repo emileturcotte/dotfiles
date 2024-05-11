@@ -11,6 +11,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local dpi   = require("beautiful.xresources").apply_dpi
 local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
+local volume_widget = require('awesome-wm-widgets.pactl-widget.volume')
 
 local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -147,6 +148,12 @@ local bat = lain.widget.bat({
     end
 })
 
+-- Volume
+-- https://github.com/streetturtle/awesome-wm-widgets/tree/master/volume-widget
+awful.key({}, "XF86AudioRaiseVolume", function() volume_widget.inc() end)
+awful.key({}, "XF86AudioLowerVolume", function() volume_widget.dec() end)
+awful.key({}, "XF86AudioMute", function() volume_widget.toggle() end)
+
 -- Net
 local neticon = wibox.widget.imagebox(theme.widget_net)
 local net = lain.widget.net({
@@ -182,6 +189,17 @@ function theme.at_screen_connect(s)
 	
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(20), bg = theme.bg_normal, fg = theme.fg_normal, visible = true })
+    
+    if s == screen.primary then
+	audio_widget = {
+	    layout = awful.widget.only_on_screen,
+	    screen = s,
+            volume_widget {
+	        widget_type = 'icon',
+		tooltip = true
+	    }
+        }
+    end
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -199,6 +217,7 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
+	    audio_widget,
             arrl_fa,
             wibox.container.background(keyboardlayout, theme.widget_accent),
 	    wibox.container.background(spr, theme.widget_accent),
