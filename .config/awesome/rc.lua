@@ -73,6 +73,7 @@ run_once({
 	"optimus-manager-qt",
 	"xautolock -time 5 -locker 'betterlockscreen -l blur --off 60 --span' -detectsleep",
 	"caffeine",
+	"emacs --daemon",
 }) -- comma-separated entries
 
 -- }}}

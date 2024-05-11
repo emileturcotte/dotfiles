@@ -34,18 +34,6 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 
 #-----------------------------
-# DotNET
-#-----------------------------
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
-export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-_dotnet_zsh_complete()
-{
-  local completions=("$(dotnet complete "$words")")
-
-  reply=( "${(ps:\n:)completions}" )
-}
-
-#-----------------------------
 # Shell Completion
 #-----------------------------
 zstyle ':completion:*' menu select
@@ -56,7 +44,6 @@ fpath=(~/.config/zsh $fpath)
 autoload -Uz compinit && compinit
 autoload -Uz promptinit && promptinit
 autoload -U +X bashcompinit && bashcompinit
-compctl -K _dotnet_zsh_complete dotnet
 
 source <(kubectl completion zsh)
 source $ZDOTDIR/az.completion
@@ -67,6 +54,7 @@ source $ZDOTDIR/zsh-better-npm-completion.plugin.zsh
 # Autosuggestion
 #-----------------------------
 if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    export ZSH_AUTOSUGGEST_STRATEGY=completion
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
@@ -75,13 +63,6 @@ fi
 #-----------------------------
 if [ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]; then
     source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-fi
-
-#-----------------------------
-# NVM Mode
-#-----------------------------
-if [ -f /usr/share/nvm/init-nvm.sh ]; then
-    source /usr/share/nvm/init-nvm.sh
 fi
 
 #-----------------------------

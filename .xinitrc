@@ -38,12 +38,11 @@ xbindkeys &
 setxkbmap -option ctrl:nocaps &
 
 # make short-pressed Ctrl behave like Escape:
-xcape -e 'Control_L=Escape' -t 200 &
+xcape -e 'Control_L=Escape' -t 100 &
 
 # Launch Window Manager
 _logdir='.cache/awesome'
 
-/usr/bin/prime-offload
-emacs --daemon &
+/usr/bin/prime-offload &
 autorandr -c
 exec /usr/bin/awesome >> $_logdir/stdout 2>> $_logdir/stderr
