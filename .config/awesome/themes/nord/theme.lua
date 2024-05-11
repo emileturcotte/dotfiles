@@ -201,6 +201,11 @@ function theme.at_screen_connect(s)
 		tooltip = true
 	    }
         }
+	todo = {
+	    layout = awful.widget.only_on_screen,
+	    screen = s,
+	    todo_widget()
+	}
     end
 
     -- Add widgets to the wibox
@@ -218,7 +223,7 @@ function theme.at_screen_connect(s)
 	},
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-	    todo_widget(),
+	    todo,
             wibox.widget.systray(),
 	    audio_widget,
             arrl_fa,
