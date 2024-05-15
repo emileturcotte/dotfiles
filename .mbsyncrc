@@ -1,0 +1,69 @@
+# Configuration based on : https://pragmaticemacs.wordpress.com/2016/03/22/migrating-from-offlineimap-to-mbsync-for-mu4e/
+# See also : https://isync.sourceforge.io/mbsync.html
+# https://stackoverflow.com/questions/57746821/getting-a-self-signed-certificate-error-with-protonbridge-and-mbsync
+
+#########################################
+# emileturcotte.com
+#########################################
+IMAPAccount protonmail
+Host 127.0.0.1
+Port 1143
+User contact@emileturcotte.com
+PassCmd "pass protonbridge/imap | head -n1"
+AuthMechs LOGIN
+SSLType STARTTLS
+SSLVersions TLSv1.3
+CertificateFile ~/.config/protonmail/bridge-v3/cert.pem
+
+# Remote
+IMAPStore protonmail-remote
+Account protonmail
+
+# Local
+MaildirStore protonmail-local
+Path ~/.cache/mbsync/
+Inbox ~/.cache/mbsync/INBOX
+
+## Connections
+Channel protonmail-all
+Far :protonmail-remote:
+Near :protonmail-local:
+Create Near
+Expunge Both
+SyncState *
+
+#Channel protonmail-inbox
+#Far :protonmail-remote:"INBOX"
+#Near :protonmail-local:"Inbox"
+#Create Near
+#Expunge Both
+#SyncState *
+
+#Channel protonmail-drafts
+#Far :protonmail-remote:"[Gmail]/Drafts"
+#Near :protonmail-local:"Drafts"
+#Create Near
+#Expunge Both
+#SyncState *
+
+#Channel protonmail-sent
+#Far :protonmail-remote:"[Gmail]/Sent Mail"
+#Near :protonmail-local:"Sent Mail"
+#Create Near
+#Expunge Both
+#SyncState *
+
+#Channel protonmail-trash
+#Far :protonmail-remote:"[Gmail]/Trash"
+#Near :protonmail-local:"Trash"
+#Create Near
+#Expunge Both
+#SyncState *
+
+## Groups
+Group protonmail
+Channel protonmail-all
+#Channel protonmail-inbox
+#Channel protonmail-drafts
+#Channel protonmail-sent
+#Channel protonmail-trash

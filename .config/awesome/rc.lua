@@ -75,6 +75,7 @@ run_once({
 	"caffeine",
 	"emacs --daemon",
 	"blueman-applet",
+	"protonmail-bridge",
 }) -- comma-separated entries
 
 -- }}}

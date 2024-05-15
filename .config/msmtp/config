@@ -1,0 +1,22 @@
+# Based on : https://marlam.de/msmtp/msmtprc.txt
+
+# Set default values: use the mail submission port 587, and always use TLS.
+# On this port, TLS is activated via STARTTLS.
+defaults
+port 1025
+tls on
+tls_starttls on
+
+# Define a mail account at a freemail service
+account protonmail
+# Host name of the SMTP server
+host 127.0.0.1
+# Envelope-from address
+from contact@emileturcotte.com
+# Authentication
+auth on
+user contact@emileturcotte.com
+passwordeval pass protonbridge/smtp | head -n1
+tls_trust_file ~/.config/protonmail/bridge-v3/cert.pem
+
+account default : protonmail
