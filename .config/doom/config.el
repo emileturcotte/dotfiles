@@ -83,14 +83,14 @@
         message-send-mail-function #'message-send-mail-with-sendmail))
 
 ;; Each path is relative to the path of the maildir you passed to mu
-(set-email-account! "emileturcotte.com"
-  '((mu4e-sent-folder       . "/emileturcotte.com/Sent Mail")
-    (mu4e-drafts-folder     . "/emileturcotte.com/Drafts")
-    (mu4e-trash-folder      . "/emileturcotte.com/Trash")
-    (mu4e-refile-folder     . "/emileturcotte.com/All Mail")
+(set-email-account! "contact@emileturcotte.com"
+  '((mu4e-sent-folder       . "/Sent")
+    (mu4e-drafts-folder     . "/Drafts")
+    (mu4e-trash-folder      . "/Trash")
+    (mu4e-refile-folder     . "/Archive")
     (smtpmail-smtp-user     . "contact@emileturcotte.com")
     (user-mail-address      . "contact@emileturcotte.com")    ;; only needed for mu < 1.4
-    (mu4e-compose-signature . "---\nÉmile Turcotte"))
+    (mu4e-compose-signature . "\nÉmile Turcotte"))
   t)
 
 (setq mu4e-update-interval 60)
