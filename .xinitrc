@@ -38,7 +38,7 @@ xbindkeys &
 setxkbmap -option ctrl:nocaps &
 
 # make short-pressed Ctrl behave like Escape:
-xcape -e 'Control_L=Escape' -t 100 &
+xcape -e 'Control_L=Escape' -t 150 &
 
 # Launch Window Manager
 _logdir='.cache/awesome'

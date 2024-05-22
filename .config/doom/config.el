@@ -82,15 +82,29 @@
         message-sendmail-extra-arguments '("--read-envelope-from")
         message-send-mail-function #'message-send-mail-with-sendmail))
 
-;; Each path is relative to the path of the maildir you passed to mu
+(setq mu4e-context-policy 'ask-if-none
+      mu4e-compose-context-policy 'always-ask)
+
 (set-email-account! "contact@emileturcotte.com"
-  '((mu4e-sent-folder       . "/Sent")
-    (mu4e-drafts-folder     . "/Drafts")
-    (mu4e-trash-folder      . "/Trash")
-    (mu4e-refile-folder     . "/Archive")
-    (smtpmail-smtp-user     . "contact@emileturcotte.com")
-    (user-mail-address      . "contact@emileturcotte.com")    ;; only needed for mu < 1.4
-    (mu4e-compose-signature . "\nÉmile Turcotte"))
-  t)
+                    '((mu4e-sent-folder       . "/protonmail/Sent")
+                      (mu4e-drafts-folder     . "/protonmail/Drafts")
+                      (mu4e-trash-folder      . "/protonmail/Trash")
+                      (mu4e-refile-folder     . "/protonmail/Archive")
+                      (smtpmail-smtp-user     . "contact@emileturcotte.com")
+                      (user-mail-address      . "contact@emileturcotte.com")
+                      (mu4e-compose-signature . "\nÉmile Turcotte"))
+                    t)
+
+(set-email-account! "emile.turcotte@baseline.quebec"
+                    '((mu4e-sent-folder       . "/baseline/Sent")
+                      (mu4e-drafts-folder     . "/baseline/Drafts")
+                      (mu4e-trash-folder      . "/baseline/Trash")
+                      (mu4e-refile-folder     . "/baseline/Archive")
+                      (smtpmail-smtp-user     . "emile.turcotte@baseline.quebec")
+                      (user-mail-address      . "emile.turcotte@baseline.quebec")
+                      (mu4e-compose-signature . "\nÉmile Turcotte"))
+                    t)
+
+(setq +mu4e-gmail-accounts '(("emile.turcotte@baseline.quebec" . "/baseline")))
 
 (setq mu4e-update-interval 60)

@@ -34,54 +34,45 @@ Create Near
 Expunge Both
 SyncState *
 
-#Channel protonmail-inbox
-#Far :protonmail-remote:"INBOX"
-#Near :protonmail-local:"Inbox"
-#Create Near
-#Expunge Both
-#SyncState *
-
-#Channel protonmail-drafts
-#Far :protonmail-remote:"Drafts"
-#Near :protonmail-local:"Drafts"
-#Create Near
-#Expunge Both
-#SyncState *
-
-#Channel protonmail-sent
-#Far :protonmail-remote:"Sent"
-#Near :protonmail-local:"Sent"
-#Create Near
-#Expunge Both
-#SyncState *
-
-#Channel protonmail-archive
-#Far :protonmail-remote:"Archive"
-#Near :protonmail-local:"Archive"
-#Create Near
-#Expunge Both
-#SyncState *
-
-#Channel protonmail-trash
-#Far :protonmail-remote:"Trash"
-#Near :protonmail-local:"Trash"
-#Create Near
-#Expunge Both
-#SyncState *
-
-#Channel protonmail-starred
-#Far :protonmail-remote:"Starred"
-#Near :protonmail-local:"Starred"
-#Create Near
-#Expunge Both
-#SyncState *
-
 ## Groups
 Group protonmail
 Channel protonmail-all
-#Channel protonmail-inbox
-#Channel protonmail-drafts
-#Channel protonmail-sent
-#Channel protonmail-archive
-#Channel protonmail-starred
-#Channel protonmail-trash
+
+
+
+
+
+#########################################
+# emile.turcotte@baseline.quebec
+#########################################
+
+IMAPAccount baseline
+Host imap.gmail.com
+User emile.turcotte@baseline.quebec
+PassCmd "pass baseline/google | head -n1"
+AuthMechs LOGIN
+SSLType IMAPS
+SSLVersions TLSv1.3
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+# Remote
+IMAPStore baseline-remote
+Account baseline
+
+# Local
+MaildirStore baseline-local
+Path ~/.cache/mbsync/baseline/
+Inbox ~/.cache/mbsync/baseline/INBOX
+SubFolders Verbatim
+
+# Connections
+Channel baseline-inbox
+Far :baseline-remote:
+Near :baseline-local:
+Patterns "INBOX"
+Create Both
+Expunge Both
+SyncState *
+
+Group baseline
+Channel baseline-inbox
