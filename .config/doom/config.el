@@ -9,6 +9,9 @@
 (setq user-full-name "Emile Turcotte"
       user-mail-address "dev@emileturcotte.com")
 
+;; KEYBINDINGS
+(map! "C-SPC" #'corfu-expand
+      "TAB" #'completion-at-point)
 
 ;; FONTS
 
@@ -108,3 +111,46 @@
 (setq +mu4e-gmail-accounts '(("emile.turcotte@baseline.quebec" . "/baseline")))
 
 (setq mu4e-update-interval 60)
+
+;;; :completion company
+(after! company
+  (setq company-idle-delay nil))
+
+;;; :completion corfu
+;; IMO, modern editors have trained a bad habit into us all: a burning need for
+;; completion all the time -- as we type, as we breathe, as we pray to the
+;; ancient ones -- but how often do you *really* need that information? I say
+;; rarely. So opt for manual completion:
+(after! corfu
+  (setq corfu-auto nil))
+
+;;; :ui modeline
+;; An evil mode indicator is redundant with cursor shape
+(setq doom-modeline-modal nil)
+
+;;; :editor evil
+;; Focus new window after splitting
+(setq evil-split-window-below t
+      evil-vsplit-window-right t)
+
+;;; :tools lsp
+;; Disable invasive lsp-mode features
+(after! lsp-mode
+  (setq lsp-enable-symbol-highlighting nil
+        ;; If an LSP server isn't present when I start a prog-mode buffer, you
+        ;; don't need to tell me. I know. On some machines I don't care to have
+        ;; a whole development environment for some ecosystems.
+        lsp-enable-suggest-server-download nil))
+(after! lsp-ui
+  (setq lsp-ui-sideline-enable nil  ; no more useful than flycheck
+        lsp-ui-doc-enable nil))     ; redundant with K
+
+;; :lang python
+;; https://www.emacswiki.org/emacs/PythonProgrammingInEmacs#h5o-27
+(add-hook! python-mode-hook
+  (flymake-ruff-load))
+
+(add-hook! python-mode-hook
+  (ruff-format-on-save-mode))
+
+(setq dap-python-debugger 'debugpy)

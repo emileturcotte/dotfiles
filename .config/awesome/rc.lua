@@ -71,7 +71,7 @@ run_once({
 	"flameshot",
 	"nm-applet",
 	"optimus-manager-qt",
-	"xautolock -time 5 -locker 'betterlockscreen -l blur --off 60 --span' -detectsleep",
+	"xautolock -time 5 -locker 'slock'", -- 'betterlockscreen -l blur --off 60 --span' -detectsleep",
 	"caffeine",
 	"emacs --daemon",
 	"blueman-applet",
@@ -95,7 +95,7 @@ local cycle_prev   = true  -- cycle with only the previously focused client or a
 local editor       = os.getenv("EDITOR") or "vim"
 local visual       = os.getenv("VISUAL") or "emacs"
 local browser      = "brave"
-local scrlocker    = "betterlockscreen -l blur --off 60 --span"
+local scrlocker    = "slock" -- "betterlockscreen -l blur --off 60 --span"
 
 local iconsdir = string.format("%s/.config/awesome/icons/", os.getenv("HOME"))
 local tags = {
@@ -274,8 +274,13 @@ globalkeys = mytable.join(
     	      {description = "launch file manager", group = "launcher"}),
     awful.key({ modkey }, "v", function () awful.spawn("pavucontrol") end,
     	      {description = "launch volume mixer", group = "launcher"}),
-    awful.key({ modkey }, "t", function () awful.spawn("teams") end,
-    	      {description = "launch teams", group = "launcher"}),
+    awful.key({ modkey }, "t", function () awful.spawn("slack") end,
+    	      {description = "launch slack", group = "launcher"}),
+    awful.key({ modkey, }, "s", 
+    	      function ()
+	    	  awful.spawn.with_shell("flameshot gui -c")
+    	      end,
+    	      {description = "take screenshot", group = "hotkeys"}),
 
 
     --    HOTKEYS
@@ -287,11 +292,6 @@ globalkeys = mytable.join(
               {description = "+10%", group = "hotkeys"}),
     awful.key({ }, "XF86MonBrightnessDown", function () os.execute("xbacklight -dec 10") end,
               {description = "-10%", group = "hotkeys"}),
-    awful.key({ modkey, }, "s", 
-    	      function ()
-	    	  awful.spawn.with_shell("flameshot gui -c")
-    	      end,
-    	      {description = "take screenshot", group = "hotkeys"}),
 
 
     --    TAGS
@@ -366,11 +366,10 @@ globalkeys = mytable.join(
 
 
     --    SCREEN
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
+    awful.key({ modkey, "Control" }, "l", function () awful.screen.focus_relative( 1) end,
               {description = "focus the next screen", group = "screen"}),
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
+    awful.key({ modkey, "Control" }, "h", function () awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"})
-
 
     --    LAYOUT
 

@@ -51,6 +51,14 @@ source $ZDOTDIR/_docker
 source $ZDOTDIR/zsh-better-npm-completion.plugin.zsh
 
 #-----------------------------
+# Python
+#-----------------------------
+export PYENV_ROOT="$XDG_CONFIG_HOME/.config/pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+#-----------------------------
 # Autosuggestion
 #-----------------------------
 if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
