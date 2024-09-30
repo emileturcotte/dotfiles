@@ -13,7 +13,6 @@ alias locate="plocate"
 alias cat='bat'
 alias grep='grep --color=always'
 
-alias aura='sudo aura'
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias k='kubectl'
 alias d='docker'
