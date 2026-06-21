@@ -1,0 +1,7 @@
+.cache/
+.local/
+.config/pulse/cookie
+.config/zsh/.zsh_history
+.config/zsh/.zcompdump
+.ssh/known_hosts
+.config/dconf/
