@@ -30,33 +30,38 @@ source $ZDOTDIR/config.d/keybindings.zsh
 # GPG & SSH
 #-----------------------------
 export GPG_TTY=$(tty)
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpgconf --launch gpg-agent
+if command -v gpgconf >/dev/null; then
+    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+    gpgconf --launch gpg-agent
+fi
 
 #-----------------------------
 # Shell Completion
 #-----------------------------
 zstyle ':completion:*' menu select
 zstyle ':completion:*' rehash true
-zstyle ':git:*' script ~/.config/zsh/git-completion.bash
 fpath=(~/.config/zsh $fpath)
 
 autoload -Uz compinit && compinit
 autoload -Uz promptinit && promptinit
 autoload -U +X bashcompinit && bashcompinit
 
-source <(kubectl completion zsh)
+command -v kubectl >/dev/null && source <(kubectl completion zsh)
+command -v helm    >/dev/null && source <(helm completion zsh)
+command -v docker  >/dev/null && source <(docker completion zsh)
+# azure-cli has no native zsh completion; this is its argcomplete bridge.
 source $ZDOTDIR/az.completion
-source $ZDOTDIR/_docker
 source $ZDOTDIR/zsh-better-npm-completion.plugin.zsh
 
 #-----------------------------
 # Python
 #-----------------------------
-export PYENV_ROOT="$XDG_CONFIG_HOME/.config/pyenv"
+export PYENV_ROOT="$XDG_CONFIG_HOME/pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+if command -v pyenv >/dev/null; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
 
 #-----------------------------
 # Autosuggestion
@@ -89,7 +94,7 @@ fi
 
 
 ### Starship ###
-eval "$(starship init zsh)"
+command -v starship >/dev/null && eval "$(starship init zsh)"
 
 ### Zoxide ###
-eval "$(zoxide init zsh)"
+command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
