@@ -1,0 +1,134 @@
+#!/usr/bin/env bash
+# Archetype post-install runner.
+#
+#   Auto mode (--auto): used by the first-login autostart. Honors the live-ISO
+#       guard and the run-once sentinel, and shows a Run/Skip/Disable dialog.
+#   Manual mode (no args): skips the dialog and runs the tasks regardless of
+#       the sentinel — for re-running setup on demand.
+#
+# Tasks in post-install.d/ must be idempotent.
+set -uo pipefail
+
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/archetype"
+SENTINEL="$STATE_DIR/post-install-done"
+TASKS_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/archetype/post-install.d"
+
+AUTO=0
+[ "${1:-}" = "--auto" ] && AUTO=1
+
+# --- Connectivity --------------------------------------------------------
+# A real reachability check (DNS + HTTPS), not just a link state.
+check_online() {
+    curl -fsS --max-time 5 -o /dev/null https://archlinux.org 2>/dev/null
+}
+
+# If offline, drop into nmtui so the user can join a network, then re-check.
+ensure_online() {
+    if check_online; then
+        echo "Network: online."
+        return 0
+    fi
+
+    echo "Network: no connection detected."
+
+    # NetworkManager must be running for nmtui to work; nudge it if it isn't.
+    if command -v systemctl >/dev/null 2>&1; then
+        systemctl is-active --quiet NetworkManager \
+            || sudo systemctl enable --now NetworkManager 2>/dev/null || true
+    fi
+
+    for attempt in 1 2 3; do
+        echo "Opening network setup (nmtui) — connect, then quit to continue. [attempt $attempt/3]"
+        sleep 1
+        nmtui
+        if check_online; then
+            echo "Network: connection established."
+            return 0
+        fi
+        echo "Network: still offline."
+    done
+    return 1
+}
+
+# --- First-login gating (auto mode only) ---------------------------------
+if [ "$AUTO" -eq 1 ]; then
+    # Never touch the live ISO environment.
+    if [ -d /run/archiso ]; then
+        echo "Live ISO detected — skipping post-install."
+        exit 0
+    fi
+    # Run only once.
+    if [ -f "$SENTINEL" ]; then
+        exit 0
+    fi
+
+    echo "============================================"
+    echo "  Archetype — first-login setup"
+    echo "============================================"
+    echo
+    echo "  1) Run the post-install setup now"
+    echo "  2) Skip for now  (ask again on next login)"
+    echo "  3) Disable       (never run again)"
+    echo
+    while true; do
+        read -rp "Choice [1/2/3]: " choice
+        case "$choice" in
+            1) echo; break ;;
+            2) echo "Skipping — setup will run again on next login."
+               exit 0 ;;
+            3) mkdir -p "$STATE_DIR"
+               echo "disabled by user on $(date)" > "$SENTINEL"
+               echo "Disabled — post-install will not run again."
+               echo "(Delete $SENTINEL to re-enable.)"
+               echo "Press Enter to close."
+               read -r _
+               exit 0 ;;
+            *) echo "Please enter 1, 2, or 3." ;;
+        esac
+    done
+else
+    echo "============================================"
+    echo "  Archetype — post-install (manual run)"
+    echo "============================================"
+    echo
+fi
+
+# --- Run -----------------------------------------------------------------
+if ! ensure_online; then
+    echo
+    echo "Could not establish a connection — aborting."
+    [ "$AUTO" -eq 1 ] && echo "Setup will retry on next login."
+    echo "Press Enter to close."
+    read -r _
+    exit 0
+fi
+echo
+
+failed=0
+shopt -s nullglob
+# Tasks are dependency-ordered (update → AUR helper → packages), so stop at the
+# first failure rather than cascading into confusing downstream errors.
+for task in "$TASKS_DIR"/*.sh; do
+    name="$(basename "$task")"
+    echo "==> $name"
+    if ! bash "$task"; then
+        echo "    FAILED: $name — stopping (later tasks depend on this one)."
+        failed=1
+        break
+    fi
+    echo "    done: $name"
+    echo
+done
+
+if [ "$failed" -eq 0 ]; then
+    mkdir -p "$STATE_DIR"
+    date > "$SENTINEL"
+    echo "All tasks complete."
+    [ "$AUTO" -eq 1 ] && echo "This setup will not run again."
+else
+    echo "Some tasks failed — sentinel NOT written; will run again."
+fi
+
+echo
+echo "Press Enter to close."
+read -r _

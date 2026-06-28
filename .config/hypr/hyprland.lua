@@ -44,6 +44,10 @@ hl.on("hyprland.start", function()
     hl.exec_cmd(logged("hyprpolkitagent", "hyprpolkitagent"))
     hl.exec_cmd(logged("wl-paste --type text --watch cliphist store", "cliphist"))
     hl.exec_cmd(logged("wl-paste --type image --watch cliphist store", "cliphist-img"))
+
+    -- First-login post-install: opens a setup terminal only on an installed
+    -- system that hasn't run it yet (skipped on the live ISO and afterwards).
+    hl.exec_cmd([[sh -c '[ -d /run/archiso ] || [ -f "$HOME/.local/state/archetype/post-install-done" ] || exec alacritty --class archetype-setup -e "$HOME/.local/bin/archetype-postinstall" --auto']])
 end)
 
 
@@ -224,6 +228,12 @@ hl.window_rule({
 hl.window_rule({
     name  = "float-pavucontrol",
     match = { class = "pavucontrol" },
+    float = true,
+})
+
+hl.window_rule({
+    name  = "float-archetype-setup",
+    match = { class = "archetype-setup" },
     float = true,
 })
 
