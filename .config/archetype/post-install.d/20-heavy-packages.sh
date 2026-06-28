@@ -3,6 +3,11 @@
 # Edit these lists to taste — re-running is safe (--needed skips installed pkgs).
 set -uo pipefail
 
+if [ "$(id -u)" -eq 0 ]; then
+    echo "Run as your normal user — aura 4.x must not run as root (HOME=$HOME)." >&2
+    exit 1
+fi
+
 # Official-repo packages (installed with pacman).
 REPO_PKGS=(
     emacs

@@ -16,6 +16,14 @@ TASKS_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/archetype/post-install.d"
 AUTO=0
 [ "${1:-}" = "--auto" ] && AUTO=1
 
+# Must run as the normal user: aura (4.x) and makepkg must not run as root, and
+# running as root writes caches into /root. Privileged steps escalate via sudo
+# on their own.
+if [ "$(id -u)" -eq 0 ]; then
+    echo "archetype-postinstall: run as your normal user, not root (sudo is used internally where needed)." >&2
+    exit 1
+fi
+
 # --- Connectivity --------------------------------------------------------
 # A real reachability check (DNS + HTTPS), not just a link state.
 check_online() {
