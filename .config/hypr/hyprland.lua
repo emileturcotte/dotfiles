@@ -27,13 +27,23 @@ local mainMod     = "SUPER"
 -- AUTOSTART  --
 ----------------
 
+-- Centralize user-app logs under ~/.local/share/logs (truncated each session).
+-- Always on by default; the "Hyprland (debug)" session raises verbosity via
+-- HYPRLAND_TRACE — it does not toggle logging on/off.
+local logdir = "$HOME/.local/share/logs"
+
+local function logged(cmd, name)
+    return "mkdir -p " .. logdir .. " && exec " .. cmd
+        .. " > " .. logdir .. "/" .. name .. ".log 2>&1"
+end
+
 hl.on("hyprland.start", function()
-    hl.exec_cmd("hyprpaper")
-    hl.exec_cmd("waybar")
-    hl.exec_cmd("mako")
-    hl.exec_cmd("hyprpolkitagent")
-    hl.exec_cmd("wl-paste --type text --watch cliphist store")
-    hl.exec_cmd("wl-paste --type image --watch cliphist store")
+    hl.exec_cmd(logged("hyprpaper", "hyprpaper"))
+    hl.exec_cmd(logged("waybar", "waybar"))
+    hl.exec_cmd(logged("mako", "mako"))
+    hl.exec_cmd(logged("hyprpolkitagent", "hyprpolkitagent"))
+    hl.exec_cmd(logged("wl-paste --type text --watch cliphist store", "cliphist"))
+    hl.exec_cmd(logged("wl-paste --type image --watch cliphist store", "cliphist-img"))
 end)
 
 
