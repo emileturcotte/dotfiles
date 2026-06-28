@@ -5,11 +5,20 @@
 -- MONITORS   --
 ----------------
 
+-- Default: native resolution on real hardware (highres = highest panel mode).
 hl.monitor({
     output   = "",
     mode     = "highres",
     position = "auto",
     scale    = "auto",
+})
+-- VM override: the virtio GPU advertises modes up to 5120x2160, so highres is
+-- unusable in QEMU. Pin the virtual output to 1080p. More-specific output wins.
+hl.monitor({
+    output   = "Virtual-1",
+    mode     = "1920x1080@60",
+    position = "auto",
+    scale    = 1,
 })
 
 
