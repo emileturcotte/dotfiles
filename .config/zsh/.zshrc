@@ -42,26 +42,31 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' rehash true
 fpath=(~/.config/zsh $fpath)
 
-autoload -Uz compinit && compinit
+# compinit: rebuild the dump only if missing or >24h old; otherwise load the
+# cached one and skip the slow fpath security scan (-C).
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh+24) ]]; then
+    compinit
+else
+    compinit -C
+fi
 autoload -Uz promptinit && promptinit
 autoload -U +X bashcompinit && bashcompinit
 
-command -v kubectl >/dev/null && source <(kubectl completion zsh)
-command -v helm    >/dev/null && source <(helm completion zsh)
-command -v docker  >/dev/null && source <(docker completion zsh)
+# Tool completions: generating them forks the tool on every shell start (the
+# main startup cost). Cache the output once, then source the cache thereafter.
+_compcache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+for _tool in kubectl helm docker; do
+    command -v "$_tool" >/dev/null || continue
+    _cf="$_compcache/${_tool}.zsh"
+    [[ -s "$_cf" ]] || { mkdir -p "$_compcache"; "$_tool" completion zsh >"$_cf" 2>/dev/null; }
+    source "$_cf"
+done
+unset _tool _cf _compcache
+
 # azure-cli has no native zsh completion; this is its argcomplete bridge.
 source $ZDOTDIR/az.completion
 source $ZDOTDIR/zsh-better-npm-completion.plugin.zsh
-
-#-----------------------------
-# Python
-#-----------------------------
-export PYENV_ROOT="$XDG_CONFIG_HOME/pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv >/dev/null; then
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-fi
 
 #-----------------------------
 # Autosuggestion

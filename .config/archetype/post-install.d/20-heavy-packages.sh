@@ -11,17 +11,12 @@ fi
 # Official-repo packages (installed with pacman).
 REPO_PKGS=(
     emacs
-    kubectl
     docker
-    helm
-    azure-cli
 )
 
 # AUR packages (installed with aura — see 10-aur-helper.sh).
 AUR_PKGS=(
     brave-bin
-    slack-desktop
-    pyenv
 )
 
 if [ "${#REPO_PKGS[@]}" -gt 0 ]; then
