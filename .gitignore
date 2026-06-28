@@ -6,3 +6,7 @@
 .config/zsh/.zcompdump
 .ssh/known_hosts
 .config/dconf/
+
+# Install/setup artifacts (not part of the dotfiles)
+*.log
+/user_configuration.json

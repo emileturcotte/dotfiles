@@ -232,9 +232,11 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    name  = "float-archetype-setup",
-    match = { class = "archetype-setup" },
-    float = true,
+    name   = "float-archetype-setup",
+    match  = { class = "archetype-setup" },
+    float  = true,
+    size   = "60% 60%",
+    center = true,
 })
 
 hl.window_rule({
