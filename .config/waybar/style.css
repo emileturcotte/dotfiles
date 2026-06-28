@@ -1,0 +1,130 @@
+/* Waybar — Nord theme — Émile Turcotte */
+
+@define-color nord0  #2e3440;  /* polar night (bg) */
+@define-color nord1  #3b4252;
+@define-color nord2  #434c5e;
+@define-color nord3  #4c566a;
+@define-color nord4  #d8dee9;  /* snow storm (fg) */
+@define-color nord6  #eceff4;
+@define-color nord8  #88c0d0;  /* frost (accent) */
+@define-color nord9  #81a1c1;
+@define-color nord11 #bf616a;  /* aurora red */
+@define-color nord13 #ebcb8b;  /* aurora yellow */
+@define-color nord14 #a3be8c;  /* aurora green */
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 13px;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background: @nord0;
+    color: @nord4;
+}
+
+/* Generic module padding */
+#workspaces,
+#window,
+#clock,
+#tray,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#backlight,
+#battery,
+#custom-power {
+    padding: 0 10px;
+    margin: 4px 0;
+    background: @nord1;
+    border-radius: 8px;
+}
+
+/* Workspaces */
+#workspaces {
+    padding: 0 4px;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    color: @nord4;
+    background: transparent;
+    border-radius: 6px;
+}
+
+#workspaces button.active {
+    color: @nord0;
+    background: @nord8;
+}
+
+#workspaces button.urgent {
+    color: @nord0;
+    background: @nord11;
+}
+
+#workspaces button:hover {
+    background: @nord3;
+    color: @nord6;
+}
+
+/* Window title — flat, no pill */
+#window {
+    background: transparent;
+    color: @nord4;
+    font-style: italic;
+}
+
+window#waybar.empty #window {
+    background: transparent;
+}
+
+/* Center clock — accent */
+#clock {
+    color: @nord8;
+    font-weight: bold;
+}
+
+/* Right-side status colors */
+#pulseaudio { color: @nord9; }
+#network    { color: @nord8; }
+#cpu        { color: @nord14; }
+#memory     { color: @nord9; }
+#backlight  { color: @nord13; }
+#battery    { color: @nord14; }
+
+#battery.warning  { color: @nord13; }
+#battery.critical { color: @nord11; }
+
+#battery.charging {
+    color: @nord14;
+}
+
+#custom-power {
+    color: @nord11;
+    margin-right: 8px;
+}
+
+#custom-power:hover {
+    color: @nord6;
+    background: @nord11;
+}
+
+#pulseaudio.muted {
+    color: @nord3;
+}
+
+#network.disconnected {
+    color: @nord11;
+}
+
+#tray {
+    background: @nord1;
+}
+
+#tray menu {
+    background: @nord1;
+    color: @nord4;
+}

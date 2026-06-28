@@ -96,6 +96,7 @@ hl.config({
         force_default_wallpaper = 0,
         disable_hyprland_logo   = true,
         disable_splash_rendering = true,
+        background_color        = 0x2e3440,  -- nord0 fallback when no wallpaper
     },
 
     input = {
@@ -141,7 +142,7 @@ hl.bind("Print",            hl.dsp.exec_cmd("grim - | wl-copy"))
 hl.bind("CTRL + space", hl.dsp.exec_cmd("makoctl dismiss -a"))
 
 -- Lock screen
-hl.bind(mainMod .. " + CTRL + l", hl.dsp.exec_cmd("slock"))
+hl.bind(mainMod .. " + CTRL + l", hl.dsp.exec_cmd("hyprlock"))
 
 -- Window management
 hl.bind(mainMod .. " + SHIFT + c", hl.dsp.window.close())
@@ -191,6 +192,9 @@ hl.bind("XF86AudioNext",         hl.dsp.exec_cmd("playerctl next"),       { lock
 hl.bind("XF86AudioPrev",         hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
 hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightnessctl set 10%+"), { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 10%-"), { locked = true, repeating = true })
+
+-- System / power menu (lock, logout, suspend, reboot, shutdown)
+hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("bash $HOME/.config/hypr/scripts/powermenu.sh"))
 
 -- Reload / Exit
 hl.bind(mainMod .. " + CTRL + r",  hl.dsp.exec_cmd("hyprctl reload"))
