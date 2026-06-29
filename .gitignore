@@ -7,6 +7,11 @@
 .ssh/known_hosts
 .config/dconf/
 
+# GnuPG — track only gpg.conf / gpg-agent.conf; never keys or runtime state
+.config/gnupg/*
+!.config/gnupg/gpg.conf
+!.config/gnupg/gpg-agent.conf
+
 # Install/setup artifacts (not part of the dotfiles)
 *.log
 /user_configuration.json
