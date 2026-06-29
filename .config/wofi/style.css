@@ -1,0 +1,58 @@
+/* Wofi — Nord theme — Émile Turcotte */
+
+window {
+    margin: 0;
+    background-color: #2e3440;
+    border: 2px solid #88c0d0;
+    border-radius: 12px;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 14px;
+}
+
+#outer-box {
+    margin: 12px;
+}
+
+#input {
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    color: #eceff4;
+    background-color: #3b4252;
+    border: none;
+    border-radius: 8px;
+}
+
+#input:focus {
+    border: none;
+    outline: none;
+}
+
+#scroll {
+    margin: 0;
+}
+
+#inner-box {
+    margin: 0;
+}
+
+#text {
+    color: #d8dee9;
+    margin: 0 8px;
+}
+
+#entry {
+    padding: 8px;
+    border-radius: 8px;
+}
+
+#entry:selected {
+    background-color: #434c5e;
+}
+
+#entry:selected #text {
+    color: #88c0d0;
+}
+
+#entry image {
+    margin-right: 8px;
+}

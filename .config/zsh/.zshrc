@@ -30,33 +30,43 @@ source $ZDOTDIR/config.d/keybindings.zsh
 # GPG & SSH
 #-----------------------------
 export GPG_TTY=$(tty)
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpgconf --launch gpg-agent
+if command -v gpgconf >/dev/null; then
+    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+    gpgconf --launch gpg-agent
+fi
 
 #-----------------------------
 # Shell Completion
 #-----------------------------
 zstyle ':completion:*' menu select
 zstyle ':completion:*' rehash true
-zstyle ':git:*' script ~/.config/zsh/git-completion.bash
 fpath=(~/.config/zsh $fpath)
 
-autoload -Uz compinit && compinit
+# compinit: rebuild the dump only if missing or >24h old; otherwise load the
+# cached one and skip the slow fpath security scan (-C).
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh+24) ]]; then
+    compinit
+else
+    compinit -C
+fi
 autoload -Uz promptinit && promptinit
 autoload -U +X bashcompinit && bashcompinit
 
-source <(kubectl completion zsh)
-source $ZDOTDIR/az.completion
-source $ZDOTDIR/_docker
-source $ZDOTDIR/zsh-better-npm-completion.plugin.zsh
+# Tool completions: generating them forks the tool on every shell start (the
+# main startup cost). Cache the output once, then source the cache thereafter.
+_compcache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+for _tool in kubectl helm docker; do
+    command -v "$_tool" >/dev/null || continue
+    _cf="$_compcache/${_tool}.zsh"
+    [[ -s "$_cf" ]] || { mkdir -p "$_compcache"; "$_tool" completion zsh >"$_cf" 2>/dev/null; }
+    source "$_cf"
+done
+unset _tool _cf _compcache
 
-#-----------------------------
-# Python
-#-----------------------------
-export PYENV_ROOT="$XDG_CONFIG_HOME/.config/pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# azure-cli has no native zsh completion; this is its argcomplete bridge.
+source $ZDOTDIR/az.completion
+source $ZDOTDIR/zsh-better-npm-completion.plugin.zsh
 
 #-----------------------------
 # Autosuggestion
@@ -89,7 +99,7 @@ fi
 
 
 ### Starship ###
-eval "$(starship init zsh)"
+command -v starship >/dev/null && eval "$(starship init zsh)"
 
 ### Zoxide ###
-eval "$(zoxide init zsh)"
+command -v zoxide >/dev/null && eval "$(zoxide init zsh)"

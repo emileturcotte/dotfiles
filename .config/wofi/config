@@ -1,0 +1,24 @@
+# Wofi — Émile Turcotte
+# https://man.archlinux.org/man/wofi.5
+
+show=drun
+prompt=Search
+width=600
+height=400
+lines=8
+columns=1
+location=center
+orientation=vertical
+halign=fill
+line_wrap=off
+dynamic_lines=false
+allow_markup=true
+allow_images=true
+image_size=28
+insensitive=true
+no_actions=true
+hide_scroll=true
+gtk_dark=true
+exec_search=false
+print_command=true
+layer=overlay

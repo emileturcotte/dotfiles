@@ -8,7 +8,7 @@ alias bc="bc -ql"
 alias ln="ln -v"
 alias mkdir="mkdir -pv"
 alias rmdir="rmdir -v"
-alias ls="exa --icons --group-directories-first -la"
+alias ls="eza --icons --group-directories-first -la"
 alias locate="plocate"
 alias cat='bat'
 alias grep='grep --color=always'
@@ -18,6 +18,5 @@ alias k='kubectl'
 alias d='docker'
 alias g='git'
 alias blue='bluetoothctl'
-alias lf='lfub'
 alias npm='sudo npm'
 alias vim='nvim'
